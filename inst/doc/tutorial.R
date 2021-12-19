@@ -113,40 +113,62 @@ m <- solve_mwcsp(mst_solver, sgmwcs_example)
 print(m$weight)
 print(m$solved_to_optimality)
 
+## ----message=FALSE,eval=FALSE-------------------------------------------------
+#  scip <- scipjack_solver(scipstp_bin=Sys.which("scipstp"))
+#  sol <- solve_mwcsp(scip, mwcs_example)
+
+## ---- message=FALSE-----------------------------------------------------------
+BioNetInstalled <- FALSE
+if (requireNamespace("BioNet") && requireNamespace("DLBCL")) {
+    BioNetInstalled <- TRUE    
+}
+
 ## ----message=FALSE------------------------------------------------------------
-library(BioNet)
-library(DLBCL)
-data(dataLym)
-data(interactome)
-pvals <- cbind(t = dataLym$t.pval, s = dataLym$s.pval)
-rownames(pvals) <- dataLym$label
-pval <- aggrPvals(pvals, order = 2, plot = FALSE)
-logFC <- dataLym$diff
-names(logFC) <- dataLym$label
-subnet <- subNetwork(dataLym$label, interactome)
-subnet <- rmSelfLoops(subnet)
-fb <- fitBumModel(pval, plot = FALSE)
-scores <- scoreNodes(subnet, fb, fdr = 0.001)
+if (BioNetInstalled) {
+    library("BioNet")
+    library("DLBCL")
+    data(dataLym)
+    data(interactome)
+    pvals <- cbind(t = dataLym$t.pval, s = dataLym$s.pval)
+    rownames(pvals) <- dataLym$label
+    pval <- aggrPvals(pvals, order = 2, plot = FALSE)
+    logFC <- dataLym$diff
+    names(logFC) <- dataLym$label
+    subnet <- subNetwork(dataLym$label, interactome)
+    subnet <- rmSelfLoops(subnet)
+    fb <- fitBumModel(pval, plot = FALSE)
+    scores <- scoreNodes(subnet, fb, fdr = 0.001)
+}
 
 ## -----------------------------------------------------------------------------
-subnet
-str(scores)
+if (BioNetInstalled) {
+    subnet
+    str(scores)
+}
 
 ## -----------------------------------------------------------------------------
-bionet_h <- runFastHeinz(subnet, scores)
-plotModule(bionet_h, scores=scores, diff.expr=logFC)
-sum(scores[nodes(bionet_h)])
+if (BioNetInstalled) {
+    bionet_h <- runFastHeinz(subnet, scores)
+    plotModule(bionet_h, scores=scores, diff.expr=logFC)
+    sum(scores[nodes(bionet_h)])
+}
 
 ## -----------------------------------------------------------------------------
-bionet_example <- igraph.from.graphNEL(subnet, weight=FALSE) # ignoring edge weights of 1
-V(bionet_example)$weight <- scores[V(bionet_example)]
-get_instance_type(bionet_example)
+if (BioNetInstalled) { 
+    bionet_example <- igraph.from.graphNEL(subnet, weight=FALSE) # ignoring edge weights of 1
+    V(bionet_example)$weight <- scores[V(bionet_example)]
+    get_instance_type(bionet_example)
+}
 
 ## -----------------------------------------------------------------------------
-rmwcs <- rmwcs_solver()
-bionet_m <- solve_mwcsp(rmwcs, bionet_example)
-plotModule(bionet_m$graph, scores=scores, diff.expr=logFC)
+if (BioNetInstalled) {
+    rmwcs <- rmwcs_solver()
+    bionet_m <- solve_mwcsp(rmwcs, bionet_example)
+    plotModule(bionet_m$graph, scores=scores, diff.expr=logFC)
+}
 
 ## -----------------------------------------------------------------------------
-print(bionet_m$weight)
+if (BioNetInstalled) {
+    print(bionet_m$weight)
+}
 

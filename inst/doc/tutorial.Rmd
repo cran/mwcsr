@@ -217,7 +217,7 @@ as vertex or edge attributes along with `signal` attributes, which is a very pra
 get_instance_type(gatom_example)
 ```
 
-Let convert this represantation into a valid SGMWCS instance using
+Let convert this representation into a valid SGMWCS instance using
 `normalize_sgmwcs_instance` function:
 
 ```{r}
@@ -254,6 +254,7 @@ Currently, four solvers are supported:
 * heuristic simulated annealing solver `annealing_solver` for MWCS/GMWCS/SGMWCS;
 * exact (if CPLEX library is available) or heuristic (without CPLEX) solver `virgo_solver` 
 for MWCS/GMWCS/SGMWCS. 
+* exact SCIP-Jack (if SCIP is available) solver `scipjack_solver` for MWCS;
 
 While selecting a particular solver depends on the particular class of instances, 
 the general recommendations are:
@@ -356,10 +357,10 @@ for (i in 0:15) {
 
 ### Java-based Virgo solver
 
-The `mwcsr` package also provide and interface to exact Java-based Virgo solver  
+The `mwcsr` package provides interface to exact Java-based Virgo solver  
 (https://github.com/ctlab/virgo-solver) which can be used to solve
 MWCS, GMWCS and SGMWCS instances. 
-The solver  requires Java (11+) to be installed on your machine.
+The solver requires Java (11+) to be installed on your machine.
 
 There are two modes of execution:
 
@@ -437,74 +438,127 @@ for the solution that was found before, while having the same total weight
 of `min_m$weight`.
 
 
+### SCIP-jack solver
+
+You can also use R interface to SCIP-jack solver. To use it you need to download
+SCIPOptSuite from the [official web-site](https://scipopt.org/#scipoptsuite)
+and build `scipstp` application.
+Beware, that `scipstp` is not provided in the pre-built SCIPOptSuite version, so
+you have to build it manually from source.
+
+Quick build instructions:
+
+```{bash eval=FALSE}
+# in scipoptsuite source directory
+cmake -Bbuild -H.
+cmake --build build --target scipstp
+# optionally copy scipstp file somewhere to $PATH
+cp build/applications/scipstp /usr/local/bin/
+```
+
+For complete build and configuration instructions for this solver 
+visit [SCIP](https://www.scipopt.org/doc/html/INSTALL_APPLICATIONS_EXAMPLES.php) website.
+
+After installing and ensuring that scipstp application is correctly built,
+you can access `scipjack_solver` class to solve MWCS instances:
+```{r message=FALSE,eval=FALSE}
+scip <- scipjack_solver(scipstp_bin=Sys.which("scipstp"))
+sol <- solve_mwcsp(scip, mwcs_example)
+```
+
+The optimization parameters are passed using \href{https://www.scipopt.org/doc-6.0.2/html/PARAMETERS.php}{SCIPopt} config file. You can modify bundled file or
+create a new one to fine-tune the solver.
+
 ## Integration with BioNet
 
 This part of the tutorial shows how `mwcsr` solvers can be combined 
 with `BioNet` package to find an active module in a protein-protein interaction
-network.
+network. You need `BioNet` and `DLBCL` packages from Bioconductor to be 
+installed in order to run following code examples.
+
+```{r, message=FALSE} 
+BioNetInstalled <- FALSE
+if (requireNamespace("BioNet") && requireNamespace("DLBCL")) {
+    BioNetInstalled <- TRUE    
+}
+```
 
 Let start with generating an example scored network, following BioNet tutorial:
 
 ```{r message=FALSE}
-library(BioNet)
-library(DLBCL)
-data(dataLym)
-data(interactome)
-pvals <- cbind(t = dataLym$t.pval, s = dataLym$s.pval)
-rownames(pvals) <- dataLym$label
-pval <- aggrPvals(pvals, order = 2, plot = FALSE)
-logFC <- dataLym$diff
-names(logFC) <- dataLym$label
-subnet <- subNetwork(dataLym$label, interactome)
-subnet <- rmSelfLoops(subnet)
-fb <- fitBumModel(pval, plot = FALSE)
-scores <- scoreNodes(subnet, fb, fdr = 0.001)
+if (BioNetInstalled) {
+    library("BioNet")
+    library("DLBCL")
+    data(dataLym)
+    data(interactome)
+    pvals <- cbind(t = dataLym$t.pval, s = dataLym$s.pval)
+    rownames(pvals) <- dataLym$label
+    pval <- aggrPvals(pvals, order = 2, plot = FALSE)
+    logFC <- dataLym$diff
+    names(logFC) <- dataLym$label
+    subnet <- subNetwork(dataLym$label, interactome)
+    subnet <- rmSelfLoops(subnet)
+    fb <- fitBumModel(pval, plot = FALSE)
+    scores <- scoreNodes(subnet, fb, fdr = 0.001)
+}
 ```
 
 Here we have network object `subnet` of type `graphNEL` and a vector of node scores `scores`:
 
 ```{r}
-subnet
-str(scores)
+if (BioNetInstalled) {
+    subnet
+    str(scores)
+}
 ```
 
 BioNet comes with a heuristic MWCS FastHeinz solver, that we can use to find the module
 following the BioNet tutorial:
 
 ```{r}
-bionet_h <- runFastHeinz(subnet, scores)
-plotModule(bionet_h, scores=scores, diff.expr=logFC)
-sum(scores[nodes(bionet_h)])
+if (BioNetInstalled) {
+    bionet_h <- runFastHeinz(subnet, scores)
+    plotModule(bionet_h, scores=scores, diff.expr=logFC)
+    sum(scores[nodes(bionet_h)])
+}
 ```
 
 We can construct an MWCS instance by converting `graphNEL` object into
 `igraph` and add node weights: 
 
 ```{r}
-bionet_example <- igraph.from.graphNEL(subnet, weight=FALSE) # ignoring edge weights of 1
-V(bionet_example)$weight <- scores[V(bionet_example)]
-get_instance_type(bionet_example)
+if (BioNetInstalled) { 
+    bionet_example <- igraph.from.graphNEL(subnet, weight=FALSE) # ignoring edge weights of 1
+    V(bionet_example)$weight <- scores[V(bionet_example)]
+    get_instance_type(bionet_example)
+}
 ```
 
 Now the instance can be solved with the relax-and-cut solver:
 
 ```{r}
-rmwcs <- rmwcs_solver()
-bionet_m <- solve_mwcsp(rmwcs, bionet_example)
-plotModule(bionet_m$graph, scores=scores, diff.expr=logFC)
+if (BioNetInstalled) {
+    rmwcs <- rmwcs_solver()
+    bionet_m <- solve_mwcsp(rmwcs, bionet_example)
+    plotModule(bionet_m$graph, scores=scores, diff.expr=logFC)
+}
 ```
 
 Note that the weight increased, compared to FastHeinz solution:
 
 ```{r}
-print(bionet_m$weight)
+if (BioNetInstalled) {
+    print(bionet_m$weight)
+}
 ```
 
 Similarly, Virgo can be used to solve the instance to provable optimality, 
 but in this case it produces the same results:
 
 ```{r, purl = FALSE, error = TRUE}
-bionet_m_exact <- solve_mwcsp(exact_solver, bionet_example)
-print(bionet_m_exact$weight)
-print(bionet_m_exact$solved_to_optimality)
+if (BioNetInstalled) {
+    bionet_m_exact <- solve_mwcsp(exact_solver, bionet_example)
+    print(bionet_m_exact$weight)
+    print(bionet_m_exact$solved_to_optimality)
+}
 ```

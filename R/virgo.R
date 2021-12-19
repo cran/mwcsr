@@ -17,12 +17,13 @@ parameters.virgo_solver <- function(solver) {
 init_solver <- function(solver) {
     solver_name <- "virgo-solver.jar"
     solver_jar <- system.file("java", solver_name, package="mwcsr")
-    command <- paste0("-XX:ActiveProcessorCount=", solver$threads)
+    command <- ""
     if (is.null(solver$cplex_bin) || is.null(solver$cplex_jar)) {
         command <- c(command, "-cp", solver_jar, virgo_java_class)
     } else {
-        command <- c(command, sprintf("-Djava.library.path=%s", solver$cplex_bin),
-                    "-cp", paste(solver_jar, solver$cplex_jar, sep=':'),
+        sep <- ifelse(.Platform$OS.type == "unix", ":", ";")
+        command <- c(command, sprintf("-Djava.library.path=%s", shQuote(solver$cplex_bin)),
+                    "-cp", shQuote(paste(solver_jar, solver$cplex_jar, sep=sep)),
                     virgo_java_class
                     )
 
@@ -51,7 +52,8 @@ find_cplex_jar <- function(cplex_dir) {
 }
 
 find_cplex_bin <- function(cplex_dir) {
-    files <- list.files(cplex_dir, pattern = "libcplex\\d+.(so|jnilib|dll)", recursive=T, full.names = TRUE)
+    cplex_lib_pattern <- "(cplex\\d+\\.dll)|libcplex\\d+.(so|jnilib|dll)"
+    files <- list.files(cplex_dir, pattern = cplex_lib_pattern, recursive=T, full.names = TRUE)
     if (length(files) > 0) {
         return(dirname(files[1]))
     } else {
@@ -85,7 +87,7 @@ find_cplex_bin <- function(cplex_dir) {
 #' @return An object of class `mwcs_solver`.
 #' @references Loboda A., Artyomov M., and Sergushichev A. (2016)
 #' "Solving generalized maximum-weight connected subgraph problem for network enrichment analysis"
-#'  doi:10.1007/978-3-319-43681-4_17
+#' \doi{10.1007/978-3-319-43681-4_17}
 #' @export
 #' @examples
 #' data("sgmwcs_small_instance")
@@ -141,10 +143,14 @@ virgo_solver <- function (cplex_dir,
 }
 
 write_files <- function(g, nodes_file, edges_file, signals_file, signals) {
+    # avoid printing scientific values
+    scipen = getOption('scipen')
+    options(scipen=max(scipen, 50))
     edges <- igraph::as_edgelist(g, names = FALSE)
     write_tbl <- function(x, file, rn) {
         utils::write.table(x, file = file, quote = FALSE, sep = "\t",
-                       row.names = rn, col.names = FALSE)
+            row.names = rn, col.names = FALSE
+        )
     }
     if (is.null(signals)) {
         node_weights <- V(g)$weight
@@ -165,6 +171,7 @@ write_files <- function(g, nodes_file, edges_file, signals_file, signals) {
     }
     write_tbl(vertices, nodes_file, FALSE)
     write_tbl(edges, edges_file, FALSE)
+    options(scipen=scipen)
 }
 
 cli_args <- function(solver, nodes.file, edges.file, signals.file = NULL, stats.file = NULL) {

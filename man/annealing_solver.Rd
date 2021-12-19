@@ -2,7 +2,7 @@
 % Please edit documentation in R/annealing.R
 \name{annealing_solver}
 \alias{annealing_solver}
-\title{ctor for annealing solver}
+\title{Construct an annealing solver}
 \usage{
 annealing_solver(
   schedule = c("fast", "boltzmann"),

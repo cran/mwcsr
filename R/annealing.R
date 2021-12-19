@@ -15,7 +15,7 @@ parameters.simulated_annealing_solver <- function(solver) {
         parameter("verbose", type = "logical"))
 }
 
-#' ctor for annealing solver
+#' Construct an annealing solver
 #'
 #' Simulated annealing is a heuristic method of solving optimization problems.
 #' Typically, it allows to find some good solution in a short time. This

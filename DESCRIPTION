@@ -1,7 +1,7 @@
 Package: mwcsr
-Title: Solvers for the Maximum Weight Connected Subgraph Problem and
-        Its Variants
-Version: 0.1.0
+Title: Solvers for Maximum Weight Connected Subgraph Problem and Its
+        Variants
+Version: 0.1.2
 Authors@R: c(person("Alexander", "Loboda", email = "aleks.loboda@gmail.com", role = c("aut", "cre")),
     person("Nikolay", "Poperechnyi", email = "n.poperechnyi@gmail.com", role = "aut"),
     person("Eduardo", "Alvarez-Miranda", email = "ealvarez@utalca.cl", role = "aut"), 
@@ -21,7 +21,7 @@ Description: Algorithms for solving various Maximum
 Depends: R (>= 3.5)
 Imports: methods, igraph, Rcpp
 Suggests: knitr, rmarkdown, mathjaxr, testthat, BioNet, roxygen2, DLBCL
-SystemRequirements: C++11
+SystemRequirements: C++11, Java (>=8)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -31,7 +31,7 @@ URL: https://github.com/ctlab/mwcsr
 BugReports: https://github.com/ctlab/mwcsr/issues
 LinkingTo: Rcpp
 NeedsCompilation: yes
-Packaged: 2021-11-11 10:42:19 UTC; aloboda
+Packaged: 2021-12-17 15:06:33 UTC; aloboda
 Author: Alexander Loboda [aut, cre],
   Nikolay Poperechnyi [aut],
   Eduardo Alvarez-Miranda [aut],
@@ -44,4 +44,4 @@ Author: Alexander Loboda [aut, cre],
     package)
 Maintainer: Alexander Loboda <aleks.loboda@gmail.com>
 Repository: CRAN
-Date/Publication: 2021-11-11 19:10:05 UTC
+Date/Publication: 2021-12-19 23:30:18 UTC

@@ -14,7 +14,19 @@
 
 <title>Using mwcsr package</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -24,6 +36,7 @@
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
     </style>
+
 
 
 <style type="text/css">
@@ -125,7 +138,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -149,13 +342,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="#simple-mwcs">Simple MWCS</a></li>
 <li><a href="#budget-mwcs">Budget MWCS</a></li>
 <li><a href="#generalized-mwcs-gmwcs">Generalized MWCS (GMWCS)</a></li>
-<li><a href="#signal-generalized-mwcs-sgmwcs">Signal generalized MWCS (SGMWCS)</a></li>
+<li><a href="#signal-generalized-mwcs-sgmwcs">Signal generalized MWCS
+(SGMWCS)</a></li>
 </ul></li>
 <li><a href="#supported-solvers">Supported solvers</a>
 <ul>
 <li><a href="#rmwcs-solver">Rmwcs solver</a></li>
 <li><a href="#rnc-solver">Rnc solver</a></li>
-<li><a href="#simulated-annealing-solver">Simulated annealing solver</a></li>
+<li><a href="#simulated-annealing-solver">Simulated annealing
+solver</a></li>
 <li><a href="#java-based-virgo-solver">Java-based Virgo solver</a></li>
 <li><a href="#scip-jack-solver">SCIP-jack solver</a></li>
 </ul></li>
@@ -163,19 +358,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 </div>
 
-<p><code>mwcsr</code> is an R package to solve maximum weight connected subgraph (MWCS) problem and its variants. The package implements and provides an interface to several solvers: both exact and heuristic.</p>
+<p><code>mwcsr</code> is an R package to solve maximum weight connected
+subgraph (MWCS) problem and its variants. The package implements and
+provides an interface to several solvers: both exact and heuristic.</p>
 <div id="installation" class="section level2">
 <h2>Installation</h2>
-<p><code>mwcsr</code> can be installed from GitHub repository using <code>devtools</code> package:</p>
+<p><code>mwcsr</code> can be installed from GitHub repository using
+<code>devtools</code> package:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install_github</span>(<span class="st">&quot;ctlab/mwcsr&quot;</span>)</span></code></pre></div>
 </div>
 <div id="quick-start" class="section level2">
 <h2>Quick start</h2>
-<p>Load <code>mwcsr</code>, as well as <code>igraph</code> package, which contains functions for graph manipulations.</p>
+<p>Load <code>mwcsr</code>, as well as <code>igraph</code> package,
+which contains functions for graph manipulations.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mwcsr)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span></code></pre></div>
-<p>Let’s load an example instance of MWCS problem. The instance is a simple <code>igraph</code> object with <code>weight</code> vertex attribute.</p>
+<p>Let’s load an example instance of MWCS problem. The instance is a
+simple <code>igraph</code> object with <code>weight</code> vertex
+attribute.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;mwcs_example&quot;</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(mwcs_example)</span></code></pre></div>
 <pre><code>## IGRAPH f86c56f UN-- 194 209 -- 
@@ -193,14 +394,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">V</span>(mwcs_example)<span class="sc">$</span>weight)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ## -0.7379 -0.7379  1.9294  5.9667  7.2931 38.1546</code></pre>
-<p>Now let us initialize a heuristic relax-and-cut MWCS solver (Alvarez-Miranda and Sinnl, 2017):</p>
+<p>Now let us initialize a heuristic relax-and-cut MWCS solver
+(Alvarez-Miranda and Sinnl, 2017):</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>rcsolver <span class="ot">&lt;-</span> <span class="fu">rmwcs_solver</span>()</span></code></pre></div>
 <p>Now we can use this solver to solve the example instance:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rcsolver, mwcs_example)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>graph)</span></code></pre></div>
-<pre><code>## IGRAPH fe24e9c UN-- 162 164 -- 
+<pre><code>## IGRAPH 6495ccc UN-- 162 164 -- 
 ## + attr: name (v/c), label (v/c), weight (v/n)
-## + edges from fe24e9c (vertex names):
+## + edges from 6495ccc (vertex names):
 ##  [1] C00022_0--C00024_1  C00022_0--C00041_0  C00022_0--C00074_5 
 ##  [4] C00022_0--C00149_0  C00022_1--C00041_1  C00022_1--C00074_6 
 ##  [7] C00022_1--C00149_2  C00022_2--C00024_0  C00022_2--C00041_2 
@@ -218,10 +420,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Supported MWCS variants are:</p>
 <ul>
 <li>classic (simple) MWCS, where only vertices are weighted;</li>
-<li>generalized MWCS (GMWCS), where both vertices and edges are weighted;</li>
-<li>signal generalized MWCS (SGMWCS), where both vertices and edges are marked with weighted “signals”, and a weight of a subgraph is calculated as a sum of weights of its unique signals.</li>
+<li>generalized MWCS (GMWCS), where both vertices and edges are
+weighted;</li>
+<li>signal generalized MWCS (SGMWCS), where both vertices and edges are
+marked with weighted “signals”, and a weight of a subgraph is calculated
+as a sum of weights of its unique signals.</li>
 </ul>
-<p>In <code>mwcsr</code>, instances of all of the above problems are represented by an <code>igraph</code> object with certain specified attributes. The validity and the type of the instance can be checked using <code>get_instance_type</code> function, for example:</p>
+<p>In <code>mwcsr</code>, instances of all of the above problems are
+represented by an <code>igraph</code> object with certain specified
+attributes. The validity and the type of the instance can be checked
+using <code>get_instance_type</code> function, for example:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_instance_type</span>(mwcs_example)</span></code></pre></div>
 <pre><code>## $type
 ## [1] &quot;MWCS&quot;
@@ -230,10 +438,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## [1] TRUE</code></pre>
 <div id="simple-mwcs" class="section level3">
 <h3>Simple MWCS</h3>
-<p>Simple maximum weight connected subgraph (MWCS) problem can be defined as follows. Let <span class="math inline">\(G = (V, E)\)</span> be an undirected graph and <span class="math inline">\(\omega : V \rightarrow \mathbb{R}\)</span> is a weight function defined on the vertices. Then MWCS problem consists in finding a connected subgraph <span class="math inline">\(\widetilde{G} = (\widetilde{V}, \widetilde{E})\)</span> with a maximal total sum of vertex weights:</p>
-<p><span class="math display">\[\Omega(\widetilde{G}) = \sum_{v \in \widetilde{V}} \omega(v) \rightarrow max.\]</span></p>
-<p>An important property of MWCS is that solution can always be represented as a tree.</p>
-<p>In <code>mwcsr</code> an MWCS instance is defined as an <code>igraph</code> with <code>weight</code> vertex attribute (and without <code>weight</code> edge attribute).</p>
+<p>Simple maximum weight connected subgraph (MWCS) problem can be
+defined as follows. Let <span class="math inline">\(G = (V, E)\)</span>
+be an undirected graph and <span class="math inline">\(\omega : V
+\rightarrow \mathbb{R}\)</span> is a weight function defined on the
+vertices. Then MWCS problem consists in finding a connected subgraph
+<span class="math inline">\(\widetilde{G} = (\widetilde{V},
+\widetilde{E})\)</span> with a maximal total sum of vertex weights:</p>
+<p><span class="math display">\[\Omega(\widetilde{G}) = \sum_{v \in
+\widetilde{V}} \omega(v) \rightarrow max.\]</span></p>
+<p>An important property of MWCS is that solution can always be
+represented as a tree.</p>
+<p>In <code>mwcsr</code> an MWCS instance is defined as an
+<code>igraph</code> with <code>weight</code> vertex attribute (and
+without <code>weight</code> edge attribute).</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mwcs_example</span></code></pre></div>
 <pre><code>## IGRAPH f86c56f UN-- 194 209 -- 
 ## + attr: name (v/c), label (v/c), weight (v/n), label (e/c)
@@ -253,13 +471,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="budget-mwcs" class="section level3">
 <h3>Budget MWCS</h3>
-<p>Budget MWCS is a slight modification of the original problem. While the objective function remains the same, an additional constraint is introduced. In this problem nonnegative values called budget costs are assigned to vertices. The sum of budget costs of the vertices in the solution is then constrained to not exceed a predefined budget.</p>
-<p>More formally, let <span class="math inline">\(c: V \rightarrow R^+\)</span> be the function of the budget costs. <span class="math inline">\(B \in R^+\)</span> is a budget of the problem. In this terms Budget MWCS is defined as a problem where the following conditions are satisfied:</p>
+<p>Budget MWCS is a slight modification of the original problem. While
+the objective function remains the same, an additional constraint is
+introduced. In this problem nonnegative values called budget costs are
+assigned to vertices. The sum of budget costs of the vertices in the
+solution is then constrained to not exceed a predefined budget.</p>
+<p>More formally, let <span class="math inline">\(c: V \rightarrow
+R^+\)</span> be the function of the budget costs. <span class="math inline">\(B \in R^+\)</span> is a budget of the problem. In
+this terms Budget MWCS is defined as a problem where the following
+conditions are satisfied:</p>
 <p><span class="math display">\[
-\Omega(\widetilde{G}) = \sum\limits_{v \in \widetilde{V}} \omega(v) \rightarrow max.\\
+\Omega(\widetilde{G}) = \sum\limits_{v \in \widetilde{V}} \omega(v)
+\rightarrow max.\\
 \text{subject to} \sum\limits_{v \in \widetilde{V}} c(v) \leq B
 \]</span></p>
-<p>In <code>mwcsr</code> a Budget MWCS instance is an <code>igraph</code> object with <code>weight</code> vertex attribute as in original MWCS problem and additional <code>budget_cost</code> vertex attribute. Value of the budget not the part of the instance itself but rather a parameter to be passed to a function that solves an instance.</p>
+<p>In <code>mwcsr</code> a Budget MWCS instance is an
+<code>igraph</code> object with <code>weight</code> vertex attribute as
+in original MWCS problem and additional <code>budget_cost</code> vertex
+attribute. Value of the budget not the part of the instance itself but
+rather a parameter to be passed to a function that solves an
+instance.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>budget_mwcs_example <span class="ot">&lt;-</span> mwcs_example</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">V</span>(budget_mwcs_example)<span class="sc">$</span>budget_cost <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="fu">vcount</span>(budget_mwcs_example))</span>
@@ -272,13 +503,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="generalized-mwcs-gmwcs" class="section level3">
 <h3>Generalized MWCS (GMWCS)</h3>
-<p>Generalized MWCS (GMWCS) is similar to MWCS, but edges are also weighted. More formally, let <span class="math inline">\(G = (V, E)\)</span> be an undirected graph and <span class="math inline">\(\omega : (V \cup E) \rightarrow \mathbb{R}\)</span> is a weight function defined on the vertices and the edges. Then GMWCS problem consists in finding a connected subgraph <span class="math inline">\(\widetilde{G} = (\widetilde{V}, \widetilde{E})\)</span> with a a maximal total sum of vertex and edge weights:</p>
+<p>Generalized MWCS (GMWCS) is similar to MWCS, but edges are also
+weighted. More formally, let <span class="math inline">\(G = (V,
+E)\)</span> be an undirected graph and <span class="math inline">\(\omega : (V \cup E) \rightarrow
+\mathbb{R}\)</span> is a weight function defined on the vertices and the
+edges. Then GMWCS problem consists in finding a connected subgraph <span class="math inline">\(\widetilde{G} = (\widetilde{V},
+\widetilde{E})\)</span> with a a maximal total sum of vertex and edge
+weights:</p>
 <p><span class="math display">\[
-\Omega(\widetilde{G}) = \sum_{v \in \widetilde{V}} \omega(v) + 
+\Omega(\widetilde{G}) = \sum_{v \in \widetilde{V}} \omega(v) +
 \sum_{e \in \widetilde{E}} \omega(e) \rightarrow max.
 \]</span></p>
-<p>An important consequence of edge weights is that the optimal solution can contain cycles.</p>
-<p>A GMWCS instance is defined as an <code>igraph</code> with <code>weight</code> attribute defined for both vertices and edges.</p>
+<p>An important consequence of edge weights is that the optimal solution
+can contain cycles.</p>
+<p>A GMWCS instance is defined as an <code>igraph</code> with
+<code>weight</code> attribute defined for both vertices and edges.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(gmwcs_example)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>gmwcs_example</span></code></pre></div>
 <pre><code>## IGRAPH f86c56f UNW- 194 209 -- 
@@ -302,14 +541,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="signal-generalized-mwcs-sgmwcs" class="section level3">
 <h3>Signal generalized MWCS (SGMWCS)</h3>
-<p>The signal generalized MWCS (SGMWCS) variant continues to generalize MWCS problem and introduces a concept of <em>signals</em>. Instead of specifying vertex and edge weights directly, the weights are defined for a set of signals, and vertices and edges are marked with these signals. The difference from GMWCS is that the signals can be repeated in the graph, while the weight of the subgraph is defined as a sum of weights of its unique signals.</p>
-<p>Formally, let <span class="math inline">\(G = (V, E)\)</span> be an undirected graph, <span class="math inline">\(S\)</span> – a set of signlas with weights <span class="math inline">\(\omega: S \rightarrow \mathbb{R}\)</span>, and <span class="math inline">\(\sigma: (V \cup E) \rightarrow 2^S\)</span> – markings of the vertices and edges with signals. An SGMWCS problem consists in finding a connected subgraph, with a maximal total sum of its unique signals:</p>
+<p>The signal generalized MWCS (SGMWCS) variant continues to generalize
+MWCS problem and introduces a concept of <em>signals</em>. Instead of
+specifying vertex and edge weights directly, the weights are defined for
+a set of signals, and vertices and edges are marked with these signals.
+The difference from GMWCS is that the signals can be repeated in the
+graph, while the weight of the subgraph is defined as a sum of weights
+of its unique signals.</p>
+<p>Formally, let <span class="math inline">\(G = (V, E)\)</span> be an
+undirected graph, <span class="math inline">\(S\)</span> – a set of
+signlas with weights <span class="math inline">\(\omega: S \rightarrow
+\mathbb{R}\)</span>, and <span class="math inline">\(\sigma: (V \cup E)
+\rightarrow 2^S\)</span> – markings of the vertices and edges with
+signals. An SGMWCS problem consists in finding a connected subgraph,
+with a maximal total sum of its unique signals:</p>
 <p><span class="math display">\[
-\Omega(\widetilde{G}) = 
-    \sum_{s \in \sigma(\widetilde{V} \cup \widetilde{E})} \omega(s) \rightarrow max,
-\]</span> where <span class="math inline">\(\sigma(\widetilde{V} \cup \widetilde{E}) = \bigcup_{x \in (\widetilde{V} \cup \widetilde{E})} \sigma(x)\)</span>.</p>
-<p>SGMWCS instances can arise when the data, from which the weights are inferred, map to the graph ambigously. For example, when m/z peak from mass-spectrometry data is assigned to multiple isomer metabolites, or when the same enzyme catalyze multiple reactions, and so on. Practically, it is usually assumed that the signals with negative weights are not repeated.</p>
-<p>An SGMWCS is represented as an <code>igraph</code> object, with <code>signal</code> attribute defined for both vertices and edges and a <code>signals</code> attribute defined for the graph, containing the signal weights. Specification of multiple signals per node or edge is not yet supported.</p>
+\Omega(\widetilde{G}) =
+    \sum_{s \in \sigma(\widetilde{V} \cup \widetilde{E})} \omega(s)
+\rightarrow max,
+\]</span> where <span class="math inline">\(\sigma(\widetilde{V} \cup
+\widetilde{E}) = \bigcup_{x \in (\widetilde{V} \cup \widetilde{E})}
+\sigma(x)\)</span>.</p>
+<p>SGMWCS instances can arise when the data, from which the weights are
+inferred, map to the graph ambigously. For example, when m/z peak from
+mass-spectrometry data is assigned to multiple isomer metabolites, or
+when the same enzyme catalyze multiple reactions, and so on.
+Practically, it is usually assumed that the signals with negative
+weights are not repeated.</p>
+<p>An SGMWCS is represented as an <code>igraph</code> object, with
+<code>signal</code> attribute defined for both vertices and edges and a
+<code>signals</code> attribute defined for the graph, containing the
+signal weights. Specification of multiple signals per node or edge is
+not yet supported.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;sgmwcs_example&quot;</span>)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>sgmwcs_example</span></code></pre></div>
 <pre><code>## IGRAPH f86c56f UN-- 194 209 -- 
@@ -333,7 +596,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  5.008879 -0.737898 -0.737898 20.112627 19.890279  2.069292</code></pre>
 <div id="constructing-sgmwcs-instances" class="section level4">
 <h4>Constructing SGMWCS instances</h4>
-<p>Sometimes, construction of SGMWCS instances can be simplified using <code>normalize_sgmwcs_instance</code> function.</p>
+<p>Sometimes, construction of SGMWCS instances can be simplified using
+<code>normalize_sgmwcs_instance</code> function.</p>
 <p>Let consider an example graph obtained from <a href="https://github.com/ctlab/gatom">gatom</a> package.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;gatom_example&quot;</span>)</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gatom_example)</span></code></pre></div>
@@ -349,14 +613,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## + edges from f86c56f (vertex names):
 ## [1] C00022_2--C00024_0 C00022_0--C00024_1 C00025_0--C00026_0 C00025_1--C00026_1
 ## + ... omitted several edges</code></pre>
-<p>In this graph, the <code>signals</code> graph attributed is absent with weights specified directly as vertex or edge attributes along with <code>signal</code> attributes, which is a very practical intermediate representation. However, it is recognized as a GMWCS instance:</p>
+<p>In this graph, the <code>signals</code> graph attributed is absent
+with weights specified directly as vertex or edge attributes along with
+<code>signal</code> attributes, which is a very practical intermediate
+representation. However, it is recognized as a GMWCS instance:</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_instance_type</span>(gatom_example)</span></code></pre></div>
 <pre><code>## $type
 ## [1] &quot;GMWCS&quot;
 ## 
 ## $valid
 ## [1] TRUE</code></pre>
-<p>Let convert this representation into a valid SGMWCS instance using <code>normalize_sgmwcs_instance</code> function:</p>
+<p>Let convert this representation into a valid SGMWCS instance using
+<code>normalize_sgmwcs_instance</code> function:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>gatom_instance <span class="ot">&lt;-</span> <span class="fu">normalize_sgmwcs_instance</span>(gatom_example)</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">get_instance_type</span>(gatom_instance)</span></code></pre></div>
 <pre><code>## $type
@@ -373,8 +641,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">group.only.positive =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>The function does the following:</p>
 <ol style="list-style-type: decimal">
-<li>It extracts signal weights from the specified columns. <code>NULL</code> can be specified as a value of <code>nodes.group.by</code> or <code>edges.group.by</code> if there are no corresponding signals in the data, in which case zero signals will be created.</li>
-<li>It splits input signals with negative weights into multiple unique signals, unless <code>group.only.positive</code> is set to <code>FALSE</code>.</li>
+<li>It extracts signal weights from the specified columns.
+<code>NULL</code> can be specified as a value of
+<code>nodes.group.by</code> or <code>edges.group.by</code> if there are
+no corresponding signals in the data, in which case zero signals will be
+created.</li>
+<li>It splits input signals with negative weights into multiple unique
+signals, unless <code>group.only.positive</code> is set to
+<code>FALSE</code>.</li>
 </ol>
 </div>
 </div>
@@ -383,29 +657,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Supported solvers</h2>
 <p>Currently, four solvers are supported:</p>
 <ul>
-<li>heuristic relax-and-cut solver <code>rmwcs_solver</code> for MWCS and Budget MWCS;</li>
-<li>heuristic relax-and-cut solver <code>rnc_solver</code> for MWCS/GMWCS/SGMWCS;</li>
-<li>heuristic simulated annealing solver <code>annealing_solver</code> for MWCS/GMWCS/SGMWCS;</li>
-<li>exact (if CPLEX library is available) or heuristic (without CPLEX) solver <code>virgo_solver</code> for MWCS/GMWCS/SGMWCS.</li>
-<li>exact SCIP-Jack (if SCIP is available) solver <code>scipjack_solver</code> for MWCS;</li>
+<li>heuristic relax-and-cut solver <code>rmwcs_solver</code> for MWCS
+and Budget MWCS;</li>
+<li>heuristic relax-and-cut solver <code>rnc_solver</code> for
+MWCS/GMWCS/SGMWCS;</li>
+<li>heuristic simulated annealing solver <code>annealing_solver</code>
+for MWCS/GMWCS/SGMWCS;</li>
+<li>exact (if CPLEX library is available) or heuristic (without CPLEX)
+solver <code>virgo_solver</code> for MWCS/GMWCS/SGMWCS.</li>
+<li>exact SCIP-Jack (if SCIP is available) solver
+<code>scipjack_solver</code> for MWCS;</li>
 </ul>
-<p>While selecting a particular solver depends on the particular class of instances, the general recommendations are:</p>
+<p>While selecting a particular solver depends on the particular class
+of instances, the general recommendations are:</p>
 <ul>
-<li>For MWCS use <code>rmwcs_solver</code> if small suboptimality can be tolerated. It is very fast and usually is able to find optimal or very close to optimal solution. To find exact solution <code>virgo_solver</code> can be used if CPLEX library is available.</li>
+<li>For MWCS use <code>rmwcs_solver</code> if small suboptimality can be
+tolerated. It is very fast and usually is able to find optimal or very
+close to optimal solution. To find exact solution
+<code>virgo_solver</code> can be used if CPLEX library is
+available.</li>
 <li>For Budget MWCS only <code>rmwcs_solver</code> is available.</li>
-<li>For GMWCS and SGMWCS <code>virgo_solver</code> is the recommended solver if CPLEX library is available. Without CPLEX it is recommended to use <code>rnc_solver</code> giving both acceptable primal solution and an upper bound on the objective function. Manual tuning of the <code>annealing_solver</code> may give better solutions in some cases.</li>
+<li>For GMWCS and SGMWCS <code>virgo_solver</code> is the recommended
+solver if CPLEX library is available. Without CPLEX it is recommended to
+use <code>rnc_solver</code> giving both acceptable primal solution and
+an upper bound on the objective function. Manual tuning of the
+<code>annealing_solver</code> may give better solutions in some
+cases.</li>
 </ul>
 <div id="rmwcs-solver" class="section level3">
 <h3>Rmwcs solver</h3>
-<p>Relax-and-cut solver is a heuristic solver able to rapidly find high-quality solutions for MWCS problem (Alvarez-Miranda and Sinnl, 2017, <a href="https://doi.org/10.1016/j.cor.2017.05.015" class="uri">https://doi.org/10.1016/j.cor.2017.05.015</a>). The solver does not require any additional libraries.</p>
-<p>Relax-and-cut solver can be constructed using <code>rmwcs_solver</code> function with the default arguments.</p>
+<p>Relax-and-cut solver is a heuristic solver able to rapidly find
+high-quality solutions for MWCS problem (Alvarez-Miranda and Sinnl,
+2017, <a href="https://doi.org/10.1016/j.cor.2017.05.015" class="uri">https://doi.org/10.1016/j.cor.2017.05.015</a>). The solver
+does not require any additional libraries.</p>
+<p>Relax-and-cut solver can be constructed using
+<code>rmwcs_solver</code> function with the default arguments.</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>rmwcs <span class="ot">&lt;-</span> <span class="fu">rmwcs_solver</span>()</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rmwcs, mwcs_example)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
 <pre><code>## [1] 1178.432</code></pre>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>solved_to_optimality)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<p><code>rmwcs_solver</code> supports Budget MWCS instances and its special case where all budget costs are set to one and called MWCS with cardinality constraints. In <code>mwcsr</code> such problems are represented as Simple MWCS problems and maximum cardinality is passed to <code>solve_mwcsp</code> funciton as argument:</p>
+<p><code>rmwcs_solver</code> supports Budget MWCS instances and its
+special case where all budget costs are set to one and called MWCS with
+cardinality constraints. In <code>mwcsr</code> such problems are
+represented as Simple MWCS problems and maximum cardinality is passed to
+<code>solve_mwcsp</code> funciton as argument:</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a> m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rmwcs, mwcs_example, <span class="at">max_cardinality =</span> <span class="dv">10</span>)</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">print</span>(<span class="fu">vcount</span>(m<span class="sc">$</span>graph))</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
@@ -420,8 +717,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="rnc-solver" class="section level3">
 <h3>Rnc solver</h3>
-<p>Rnc solver is another relax-and-cut solver made for GMWCS/SGMWCS problems inspired by rmwcs solver. The solver does not require any libraries as well. Although with <code>rnc_solver</code> it is possible to solve MWCS problems, running <code>rmwcs_solver</code> for this type of problems of this type is preferable. No budget and cardinality variants are available.</p>
-<p>The solver can be constructed using <code>rnc_solver</code> function.</p>
+<p>Rnc solver is another relax-and-cut solver made for GMWCS/SGMWCS
+problems inspired by rmwcs solver. The solver does not require any
+libraries as well. Although with <code>rnc_solver</code> it is possible
+to solve MWCS problems, running <code>rmwcs_solver</code> for this type
+of problems of this type is preferable. No budget and cardinality
+variants are available.</p>
+<p>The solver can be constructed using <code>rnc_solver</code>
+function.</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>  rnc <span class="ot">&lt;-</span> <span class="fu">rnc_solver</span>()</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rnc, gmwcs_example)</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
@@ -436,9 +739,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="simulated-annealing-solver" class="section level3">
 <h3>Simulated annealing solver</h3>
-<p>Another heuristic solver is a simulated annealing based solver. The solver is rather generic, but can produce good enough solutions if parameters are tuned well. As it is heuristic solver with no estimate on upper bound of the objective function the solved to optimality flag is always set to <code>FALSE</code>.</p>
-<p>This solver does support warm start allowing to run series of restarts of annealing solver with different temperature schedules.</p>
-<p>The use of this solver may be beneficial in some cases, although there are no generic guidelines.</p>
+<p>Another heuristic solver is a simulated annealing based solver. The
+solver is rather generic, but can produce good enough solutions if
+parameters are tuned well. As it is heuristic solver with no estimate on
+upper bound of the objective function the solved to optimality flag is
+always set to <code>FALSE</code>.</p>
+<p>This solver does support warm start allowing to run series of
+restarts of annealing solver with different temperature schedules.</p>
+<p>The use of this solver may be beneficial in some cases, although
+there are no generic guidelines.</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">15</span>) {</span>
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  asolver <span class="ot">&lt;-</span> <span class="fu">annealing_solver</span>(<span class="at">schedule =</span> <span class="st">&quot;boltzmann&quot;</span>, <span class="at">initial_temperature =</span> <span class="fl">8.0</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">**</span> i),</span>
@@ -469,48 +778,83 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="java-based-virgo-solver" class="section level3">
 <h3>Java-based Virgo solver</h3>
-<p>The <code>mwcsr</code> package provides interface to exact Java-based Virgo solver<br />
-(<a href="https://github.com/ctlab/virgo-solver" class="uri">https://github.com/ctlab/virgo-solver</a>) which can be used to solve MWCS, GMWCS and SGMWCS instances. The solver requires Java (11+) to be installed on your machine.</p>
+<p>The <code>mwcsr</code> package provides interface to exact Java-based
+Virgo solver<br />
+(<a href="https://github.com/ctlab/virgo-solver" class="uri">https://github.com/ctlab/virgo-solver</a>) which can be used
+to solve MWCS, GMWCS and SGMWCS instances. The solver requires Java
+(11+) to be installed on your machine.</p>
 <p>There are two modes of execution:</p>
 <ol style="list-style-type: decimal">
-<li>Heuristic – which finds a solution based on minimal spanning tree heuristic and does not require any additional setup;</li>
-<li>Exact – which uses CPLEX library to solve the instances to provable optimality. CPLEX can be downloaded from the official web-site: <a href="https://www.ibm.com/products/ilog-cplex-optimization-studio" class="uri">https://www.ibm.com/products/ilog-cplex-optimization-studio</a>. Free licence can be obtained for academic purposes. CPLEX version 12.7.1 or higher is required.</li>
+<li>Heuristic – which finds a solution based on minimal spanning tree
+heuristic and does not require any additional setup;</li>
+<li>Exact – which uses CPLEX library to solve the instances to provable
+optimality. CPLEX can be downloaded from the official web-site: <a href="https://www.ibm.com/products/ilog-cplex-optimization-studio" class="uri">https://www.ibm.com/products/ilog-cplex-optimization-studio</a>.
+Free licence can be obtained for academic purposes. CPLEX version 12.7.1
+or higher is required.</li>
 </ol>
-<p>Heuristic solver can be constructed, by specifying <code>cplex_dir=NULL</code>. As it is a heuristic solver, the solved to optimality flag is always set to <code>FALSE</code>.</p>
+<p>Heuristic solver can be constructed, by specifying
+<code>cplex_dir=NULL</code>. As it is a heuristic solver, the solved to
+optimality flag is always set to <code>FALSE</code>.</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>mst_solver <span class="ot">&lt;-</span> <span class="fu">virgo_solver</span>(<span class="at">cplex_dir=</span><span class="cn">NULL</span>)</span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(mst_solver, sgmwcs_example)</span>
 <span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
-<pre><code>## [1] 268.4159</code></pre>
+<pre><code>## [1] 263.2752</code></pre>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>solved_to_optimality)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<p>Exact solver requires setting <code>cplex_dir</code> argument with a path to CPLEX installation. The <code>cplex_dir</code> requires, that <code>cplex.jar</code> file and CPLEX dynamic library file (depending on the operating system: <code>libcplex&lt;version&gt;.dll</code> for Windows, <code>libcplex&lt;version&gt;.so</code> for Linux, <code>libcplex&lt;version&gt;.jnilib</code> for OS X) can be found there with recursive search. Alternatively, <code>cplex_jar</code> argument pointing to <code>cplex.jar</code> file and <code>cplex_bin</code> argument pointing to the directory with CPLEX dynamic library files can be specified. Additionally, it is convenient to put the path to CPLEX into a <code>CPLEX_HOME</code> environment variable, so that it does not have to be changed from one system to another, when run.</p>
+<p>Exact solver requires setting <code>cplex_dir</code> argument with a
+path to CPLEX installation. The <code>cplex_dir</code> requires, that
+<code>cplex.jar</code> file and CPLEX dynamic library file (depending on
+the operating system: <code>libcplex&lt;version&gt;.dll</code> for
+Windows, <code>libcplex&lt;version&gt;.so</code> for Linux,
+<code>libcplex&lt;version&gt;.jnilib</code> for OS X) can be found there
+with recursive search. Alternatively, <code>cplex_jar</code> argument
+pointing to <code>cplex.jar</code> file and <code>cplex_bin</code>
+argument pointing to the directory with CPLEX dynamic library files can
+be specified. Additionally, it is convenient to put the path to CPLEX
+into a <code>CPLEX_HOME</code> environment variable, so that it does not
+have to be changed from one system to another, when run.</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>cplex_dir <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">&#39;CPLEX_HOME&#39;</span>)</span>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>exact_solver <span class="ot">&lt;-</span> <span class="fu">virgo_solver</span>(<span class="at">cplex_dir=</span>cplex_dir)</span></code></pre></div>
 <pre><code>## Error in virgo_solver(cplex_dir = cplex_dir): Could not find `cplex.jar` in /opt/ibm/ILOG/CPLEX_Studio129/</code></pre>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(exact_solver, sgmwcs_example)</span></code></pre></div>
 <pre><code>## Error in check_mwcs_solver(solver): object &#39;exact_solver&#39; not found</code></pre>
-<p>As the CPLEX found the optimal solution, the corresponding flag is set to <code>TRUE</code>:</p>
+<p>As the CPLEX found the optimal solution, the corresponding flag is
+set to <code>TRUE</code>:</p>
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
-<pre><code>## [1] 268.4159</code></pre>
+<pre><code>## [1] 263.2752</code></pre>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>solved_to_optimality)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<p>Some additional information like the running time, instance files, solver version is available as in the <code>stats</code> field. Refer to Virgo documentation for the description of the values.</p>
+<p>Some additional information like the running time, instance files,
+solver version is available as in the <code>stats</code> field. Refer to
+Virgo documentation for the description of the values.</p>
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>stats)</span></code></pre></div>
 <pre><code>##   isOpt VPrep EPrep time nodes edges
-## 1     0   136   148  522    47    46
-##                                      nodefile
-## 1 /tmp/Rtmp9V13eB/graph917267873e28/nodes.txt
-##                                      edgefile
-## 1 /tmp/Rtmp9V13eB/graph917267873e28/edges.txt
-##                                         sigfile version
-## 1 /tmp/Rtmp9V13eB/graph917267873e28/signals.txt   0.1.5</code></pre>
-<p>Computational resources availble for Virgo can be specified with the following parameters:</p>
+## 1     0   136   148  478    59    58
+##                                       nodefile
+## 1 /tmp/RtmpvijSpS/graph442985f872ed5/nodes.txt
+##                                       edgefile
+## 1 /tmp/RtmpvijSpS/graph442985f872ed5/edges.txt
+##                                          sigfile version
+## 1 /tmp/RtmpvijSpS/graph442985f872ed5/signals.txt   0.1.5</code></pre>
+<p>Computational resources availble for Virgo can be specified with the
+following parameters:</p>
 <ul>
-<li><code>memory</code> – maximum amount of memory, more specifically Java heap size, specified via <code>-Xmx</code> Java option, default: <code>2G</code>.</li>
-<li><code>threads</code> – number of threads for simultaneous computation, default: the number of available cores.</li>
-<li><code>timelimit</code> – maximum time in seconds to solve the problem, if the solver is interrupted due to time limit, the best solution found so far is reported and <code>solved_to_optimality</code> flag is set to <code>FALSE</code>.</li>
+<li><code>memory</code> – maximum amount of memory, more specifically
+Java heap size, specified via <code>-Xmx</code> Java option, default:
+<code>2G</code>.</li>
+<li><code>threads</code> – number of threads for simultaneous
+computation, default: the number of available cores.</li>
+<li><code>timelimit</code> – maximum time in seconds to solve the
+problem, if the solver is interrupted due to time limit, the best
+solution found so far is reported and <code>solved_to_optimality</code>
+flag is set to <code>FALSE</code>.</li>
 </ul>
-<p>Another useful parameter is <code>penalty</code>. The non-zero penalty make the solver run an additional pass over the solution, with each edge penalized with the specified value. As there can be multiple solutions, having the same weight, especially in case of SGMWCS, this procedure allows to locally minimize the solution size, while preserving the weight.</p>
+<p>Another useful parameter is <code>penalty</code>. The non-zero
+penalty make the solver run an additional pass over the solution, with
+each edge penalized with the specified value. As there can be multiple
+solutions, having the same weight, especially in case of SGMWCS, this
+procedure allows to locally minimize the solution size, while preserving
+the weight.</p>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>psolver <span class="ot">&lt;-</span> <span class="fu">virgo_solver</span>(<span class="at">cplex_dir=</span>cplex_dir, <span class="at">penalty=</span><span class="fl">0.001</span>)</span></code></pre></div>
 <pre><code>## Error in virgo_solver(cplex_dir = cplex_dir, penalty = 0.001): Could not find `cplex.jar` in /opt/ibm/ILOG/CPLEX_Studio129/</code></pre>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>min_m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(psolver, sgmwcs_example)</span></code></pre></div>
@@ -519,32 +863,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## Error in print(min_m$weight): object &#39;min_m&#39; not found</code></pre>
 <div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(min_m<span class="sc">$</span>stats)</span></code></pre></div>
 <pre><code>## Error in print(min_m$stats): object &#39;min_m&#39; not found</code></pre>
-<p>Now the solution, has <code>min_m$stats$nodes</code> nodes instead of <code>m$stats$nodes</code> for the solution that was found before, while having the same total weight of <code>min_m$weight</code>.</p>
+<p>Now the solution, has <code>min_m$stats$nodes</code> nodes instead of
+<code>m$stats$nodes</code> for the solution that was found before, while
+having the same total weight of <code>min_m$weight</code>.</p>
 </div>
 <div id="scip-jack-solver" class="section level3">
 <h3>SCIP-jack solver</h3>
-<p>You can also use R interface to SCIP-jack solver. To use it you need to download SCIPOptSuite from the <a href="https://scipopt.org/#scipoptsuite">official web-site</a> and build <code>scipstp</code> application. Beware, that <code>scipstp</code> is not provided in the pre-built SCIPOptSuite version, so you have to build it manually from source.</p>
+<p>You can also use R interface to SCIP-jack solver. To use it you need
+to download SCIPOptSuite from the <a href="https://scipopt.org/#scipoptsuite">official web-site</a> and build
+<code>scipstp</code> application. Beware, that <code>scipstp</code> is
+not provided in the pre-built SCIPOptSuite version, so you have to build
+it manually from source.</p>
 <p>Quick build instructions:</p>
 <div class="sourceCode" id="cb83"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># in scipoptsuite source directory</span></span>
 <span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-Bbuild</span> <span class="at">-H.</span></span>
 <span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--build</span> build <span class="at">--target</span> scipstp</span>
 <span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="co"># optionally copy scipstp file somewhere to $PATH</span></span>
 <span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> build/applications/scipstp /usr/local/bin/</span></code></pre></div>
-<p>For complete build and configuration instructions for this solver visit <a href="https://www.scipopt.org/doc/html/INSTALL_APPLICATIONS_EXAMPLES.php">SCIP</a> website.</p>
-<p>After installing and ensuring that scipstp application is correctly built, you can access <code>scipjack_solver</code> class to solve MWCS instances:</p>
+<p>For complete build and configuration instructions for this solver
+visit <a href="https://www.scipopt.org/doc/html/INSTALL_APPLICATIONS_EXAMPLES.php">SCIP</a>
+website.</p>
+<p>After installing and ensuring that scipstp application is correctly
+built, you can access <code>scipjack_solver</code> class to solve MWCS
+instances:</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>scip <span class="ot">&lt;-</span> <span class="fu">scipjack_solver</span>(<span class="at">scipstp_bin=</span><span class="fu">Sys.which</span>(<span class="st">&quot;scipstp&quot;</span>))</span>
 <span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>sol <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(scip, mwcs_example)</span></code></pre></div>
-<p>The optimization parameters are passed using  config file. You can modify bundled file or create a new one to fine-tune the solver.</p>
+<p>The optimization parameters are passed using config file. You can
+modify bundled file or create a new one to fine-tune the solver.</p>
 </div>
 </div>
 <div id="integration-with-bionet" class="section level2">
 <h2>Integration with BioNet</h2>
-<p>This part of the tutorial shows how <code>mwcsr</code> solvers can be combined with <code>BioNet</code> package to find an active module in a protein-protein interaction network. You need <code>BioNet</code> and <code>DLBCL</code> packages from Bioconductor to be installed in order to run following code examples.</p>
+<p>This part of the tutorial shows how <code>mwcsr</code> solvers can be
+combined with <code>BioNet</code> package to find an active module in a
+protein-protein interaction network. You need <code>BioNet</code> and
+<code>DLBCL</code> packages from Bioconductor to be installed in order
+to run following code examples.</p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>BioNetInstalled <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
 <span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">&quot;BioNet&quot;</span>) <span class="sc">&amp;&amp;</span> <span class="fu">requireNamespace</span>(<span class="st">&quot;DLBCL&quot;</span>)) {</span>
 <span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>    BioNetInstalled <span class="ot">&lt;-</span> <span class="cn">TRUE</span>    </span>
 <span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p>Let start with generating an example scored network, following BioNet tutorial:</p>
+<p>Let start with generating an example scored network, following BioNet
+tutorial:</p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
 <span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(<span class="st">&quot;BioNet&quot;</span>)</span>
 <span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">library</span>(<span class="st">&quot;DLBCL&quot;</span>)</span>
@@ -560,51 +920,44 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb86-13"><a href="#cb86-13" aria-hidden="true" tabindex="-1"></a>    fb <span class="ot">&lt;-</span> <span class="fu">fitBumModel</span>(pval, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb86-14"><a href="#cb86-14" aria-hidden="true" tabindex="-1"></a>    scores <span class="ot">&lt;-</span> <span class="fu">scoreNodes</span>(subnet, fb, <span class="at">fdr =</span> <span class="fl">0.001</span>)</span>
 <span id="cb86-15"><a href="#cb86-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p>Here we have network object <code>subnet</code> of type <code>graphNEL</code> and a vector of node scores <code>scores</code>:</p>
+<p>Here we have network object <code>subnet</code> of type
+<code>graphNEL</code> and a vector of node scores
+<code>scores</code>:</p>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
 <span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>    subnet</span>
 <span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str</span>(scores)</span>
 <span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>##  Named num [1:2559] -4.829 -4.225 -5.514 3.931 -0.386 ...
-##  - attr(*, &quot;names&quot;)= chr [1:2559] &quot;ABL1(25)&quot; &quot;ACPP(55)&quot; &quot;ACTG1(71)&quot; &quot;ACTN1(87)&quot; ...</code></pre>
-<p>BioNet comes with a heuristic MWCS FastHeinz solver, that we can use to find the module following the BioNet tutorial:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
-<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>    bionet_h <span class="ot">&lt;-</span> <span class="fu">runFastHeinz</span>(subnet, scores)</span>
-<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plotModule</span>(bionet_h, <span class="at">scores=</span>scores, <span class="at">diff.expr=</span>logFC)</span>
-<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(scores[<span class="fu">nodes</span>(bionet_h)])</span>
+<p>BioNet comes with a heuristic MWCS FastHeinz solver, that we can use
+to find the module following the BioNet tutorial:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>    bionet_h <span class="ot">&lt;-</span> <span class="fu">runFastHeinz</span>(subnet, scores)</span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plotModule</span>(bionet_h, <span class="at">scores=</span>scores, <span class="at">diff.expr=</span>logFC)</span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(scores[<span class="fu">nodes</span>(bionet_h)])</span>
+<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>We can construct an MWCS instance by converting <code>graphNEL</code>
+object into <code>igraph</code> and add node weights:</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) { </span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>    bionet_example <span class="ot">&lt;-</span> <span class="fu">igraph.from.graphNEL</span>(subnet, <span class="at">weight=</span><span class="cn">FALSE</span>) <span class="co"># ignoring edge weights of 1</span></span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">V</span>(bionet_example)<span class="sc">$</span>weight <span class="ot">&lt;-</span> scores[<span class="fu">V</span>(bionet_example)]</span>
+<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_instance_type</span>(bionet_example)</span>
 <span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
-<pre><code>## [1] 60.40548</code></pre>
-<p>We can construct an MWCS instance by converting <code>graphNEL</code> object into <code>igraph</code> and add node weights:</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) { </span>
-<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>    bionet_example <span class="ot">&lt;-</span> <span class="fu">igraph.from.graphNEL</span>(subnet, <span class="at">weight=</span><span class="cn">FALSE</span>) <span class="co"># ignoring edge weights of 1</span></span>
-<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">V</span>(bionet_example)<span class="sc">$</span>weight <span class="ot">&lt;-</span> scores[<span class="fu">V</span>(bionet_example)]</span>
-<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">get_instance_type</span>(bionet_example)</span>
-<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## $type
-## [1] &quot;MWCS&quot;
-## 
-## $valid
-## [1] TRUE</code></pre>
 <p>Now the instance can be solved with the relax-and-cut solver:</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>    rmwcs <span class="ot">&lt;-</span> <span class="fu">rmwcs_solver</span>()</span>
-<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a>    bionet_m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rmwcs, bionet_example)</span>
-<span id="cb93-4"><a href="#cb93-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plotModule</span>(bionet_m<span class="sc">$</span>graph, <span class="at">scores=</span>scores, <span class="at">diff.expr=</span>logFC)</span>
-<span id="cb93-5"><a href="#cb93-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAIAAACb4TnXAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAgAElEQVR4nO3dd1xT1/8/8JOdEAiEsPeQDbJBxIo4EAUVELBurVurVqu1aIdaW636cdaJAwcyFEUURUBkuBDZG2RvCDOE7OT3R/zy6e+zurxF9P18+MdNuOOcKy/uOvccnEwmQwAAbOBHugAAfMggYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYABgCAIGAIYgYB++R4/q1dROdXUNyT/On3+/sLCrsLBr1qw7w/PMmnWnsLDr0aN6HO5wQ8OA/MvmZg4efzgxsTYjo4nF+sXV9bqNzWVn52vV1b0jUI3RCQL2UWAyKVu2PPk9cxoaMm7erJRP37pVZWDAkE/PnGmSk7OotHT5Z5/ZHj6cg1VBPzgQsI+Cn5/J4KAoKanuP/70/v37RUVFZ8+eHRgY8PU1fvjw7WyJibUzZ5r8ek4uV1RT02djo4Z5iT8UELCPAg6HO3Vq6o4dmVyu6F9+FBcXt+Xzz1VotJ7Gxp07d1KpBB0dxdra/qYmjpoajU4nyWd78KDW1fX6xInR0dEV3t4Gf3sNRisI2MdCV1dx7Vr77757Jv+IwyGpVIYQiomJ+XHLFh1N7V3r1gq43N7e3tBQi9jYips3K0NCLIYXl58i5uYuzsqav3hx4sjUYRSCgH1E1q51yM3tKCjoRAiZmKhUVfWw2TwVFZWC8rbXxb1aamhgcJBCoUyfbpSc3PDwYd2MGcb/vhICATc4+K+HQfDfEEe6AODvg8OhM2emOjpeRQgpKpKOHPGePDlGJHKtqXljYZzqEnTAd+YqOp1OJhMMDRkCgZhG++evR1JSnYdHpFSKurt5R496j1wlRhmcTCYb6TKAEdbT03P69OmQkBALC4vfnhv8EXAE+/ClpDRoadHJZHx0dMWvv1+71kFTU6GvT3DjRnVjo0lLC02erytXSuvr+xFCDAYlNNRCV1cxM7P5yZNG+VJff+1OoRD+9kqMVnAN9uFLTq4vKupSUaG6uGi5uGidPJkvn6DRiLW1/Z6eN9rbOerqtKNHc1eseIQQiogo0dFRdHbWFIkkHh6RAoEkKqqcRiNaWqpaWqri8biRrtBoAkewj4WmpoKfnwlCiEYjyicQQkFB8WfOeDU0PKPT6Xv2BGzfnsHhCBFCkycbmJqq+PubXrxY3NvLr6np++678T09PCsrFgTsD4GAfbzEYmldXe/ChV56pnq1VUPR0fkrVqzg88UIoRMn8phMamVlz+TJBlpa9Nra/h07MrhcUVcXLzU1hEyGU8TfC04RP2qdnT2LNy6OTY/97ujxxAfFe/ZkvXrVjhCytVVzddWaPt2ooKDzzZu+lJSQq1dnxsXN0dRUuH+/dqRLPZpAwD4WOTnt3t4x/f0C+UcOR+jjc4tIFDXVas3zfuLta6CtX0IiyXg8cUFBl6oqzdFR48qV0rY27syZcatXJ8tbAPf1Cfbvz96wIbWzc2hEazNqQMA+Fj09/Pz8zvj4N/KPCQk1+fkdwcEG0Re7c551Bnqe72dPRYicnd02OCh8+rQ5Obm+uXmQRMKfP+9TVtY9ffrNjRsfZ2e3RUf7m5kx165NGdnqjBYQsA+fj4/R2LHqCCF/f5Pbt6u2bnVBCMXFVfn7mwYETNy2zUqR3t/bqbJ5s+P06ezc3GY3N63OzqH8/E6xWBIV5T9pkv7Dh8G9vQIuVxwRMcPUVGX5ctvhV1rA/wY3OT5806YZIoRaWwfV1RX6+gRLl9oMDAj5fLGpqQpCaNKkcUVF/S9fvglPv6JkSK945rx4gU9wsJWlpert29VxcdVRURWpqQ3btrlu3+6KEOLxxJs2pa1YYTfCtRolIGAfl6Ags/j4ajKZMGfOmDdv+hBCEomEw+EIFXIt58/FU2SCvsaioqLgYEeEEJNJ8fU1Qgjt3OnOYtEQQunpTV9/nblpk9OCBVYjWo9RAwL2cQkMNFuy5CGRiDt/3ufgwRyEkFgsxuPxFEb1m/gpOKJU3b5NWP/2KZmyMsXLS3942dzcju++e3bvXqC6usLIlH4UgoB9XJhMKh6PhELpcEhEIhGTybSRmeRktxBplLbnL0JnrvuPy0ZElCgoEH/6KRshpKGhEBbm/veVe9SCgH3gEhNr4+Orjx6dHBaWKRbLGIwTOjqKZDIhKqpi3TqHFy9af/45u7+fh8OF+E4QOjiQly+vEIkYn356T0WFcvLkFDe361evzrS0VEUITZlikJnZLM+VggJppGs2OkDAPgqKiqS8vCUIIW/vmAsXpstvbzx/3nr+fOHVqxPb2t5IJNRt2+p27fLT19esq+vH43GNjRwdHcVFi6yjoyt27x6PEMrP71y71v7XJ43gN0HAPl779qUSCBlffXWJy+Vqa2vv2bPY3JyJEIqMLF+wwKq1dTA2tvLTTy29vWPkAYuPf5OaGjLSpR5l4DnYx6u8nI1Q96pVq7y81mRk2G3dWhYRUYIQio6uCA21CA42j4ws09BQMDRk5OV1VFT06Ogowu2NPwqOYB8vVVWcsrJZSEhISAhiMg+9fDnQ2MjJze2ore1bvPiBTCbLzm6rre1ftMg6KqpCWZkyf77lSBd59IEj2Mfrk08IL16osNk8hBCfj16/VkAIXb9edvSod0pKSGpq6Ndfu0dFlQcEjElMrL1/vyYgwGykizz6wBHs42VuTsThMi0sxDicVCTqnTmToa5OO326ID9/iXyGRYusg4MTdu0a5+KiOTQkZjDII1vg0Qj65Ph49fT0pKWl1dbWUqlUbW3t8ePH6+rqjnShPjQQsI9denq6paWllpbWSBfkwwTXYB+7/v5+FRWVkS7FBwsC9lETCAQymYxKpY50QT5YELCPWl9fn7Ky8kiX4kMGAfuoDQwMQMAwBQH7YDU2DlCpR7dufTssWG8vf+rU2NDQeytWPLKxuVxayi4tZe/dm3fmTJOS0vHt2zO2b89obR308IicN++efJHKyp7AwHj5dEvLoKfnjZGpyWgGdxE/WAcOZPN44p9+yt640QmPR5GR5Xp6ijk5i11dr2/c6JSUVJuV1XLhgpGzs7OFRbSTk+atW7P9/W9XV/cKBJI5c8ZERMwwNDxHIhECA82ys1tzcjoMDJQqK1cghO7fr3n0qP7kySkjXcVRAI5gH6yoqIo1a+yJRPyMGcaHD0+i00nt7UNtbVyE0JQpBpcvT+vp6QkMCjQ2DuJwBHfvBpSVddvYqBkbKz96FBwTUynvgdTGhnXokFdm5vw1a+zl34SFZf3OwTIBgoB9ACQS2fffP3Nzu+7gcCUo6G5fnwAhNGNG3Js3fbNn3xEIJIsXJ968WcVmD7W0DI4fH1lUxP7uu2eqqifFYrR4XTSDGSoWi8eP992yJQiHaygpYcfEVLBY1EmTYgYHRampjXV1/Q0NA8XFXTQaCSG0f/8nZ8/6jHSlRw0I2Kh37Fju4KAoO3tRQcHS8eN1wsIyEUL19f3a2nQmk4rH4zo7ebt2ZeJweDIZ/9VXbra2rLt3q3k8JJGQ6t8MaOmSEMIpqQe1tC8Iv9AkFIqfP2/l8yW9vXyxWCqVSmfOjLO2vtzby//1aEbgd4KAjXrh4UX79k3A4RBCaPNm53Xrxu7bt6+qqsvQsODCBTcKhWBqqiwUyvz9TYRCqYGBklgsFYmkCElliPfi6Uax6IZMhu/tpra3in0D+Gpq0p4evooKxdfXaHBQRKEQGQxyVJS/iYnKvw8/C34TBGx0k0hkQqFk+NhCIuETEsLvZd1T1yMpmhL8/f0RQvr6jK4uroODOotFO3LkdV1dP5crwBMRU1vpWMU/KisYCMlqKgcmz9BMilfW0yOcPDlFJJK8fNkmkyEiEb98ud3s2aaDgwKZTLZnz/Pjx/NaWjgjWunRBAI2miQm1q5a9YjPF8vvqhsYnFuzJrmvT5Ca2oAQ+uqrDDe36/v3i1pr5xHJ5BlLZrb3tDOZ5MrKHjwe/+WXrqmpIQoKJLFYRiBIpBK8kSNZSU1JJHDH4cQiQcPjBxkIJy0p6fnxx5cSCerpERCJCIdDFy4USSSyoiL2xIl6Li5aSkqksLAsGGPldyLs3r17pMsAfq/q6t6Kip6gIHMfHyMfH6OEhJpDh7wUFUlFRV2dnbyysu6pUw3Ky8t9ljSW52jQ6NzXqVShUH1gQCQWS3Ny2iore1JSGrS16Z2dAiSTiQT87sbsqhfqMhlBSVuJylCTiomCIU5Tk0Qkknp56bi765qbM3NyOoRCSVFRF51OyspqYTKp1tYsY2NlNzftkd4fowAcwUa9r792JxLxmzY9vn07d9u2U52dFxPPJfWxC6/uf0Oh2COE8/LS/fHHCaWlbFVVmkgk7evj4/E4JSW8kfojjX4SHk9SUhrk9YrJdAmJNsRg4GUyGZ/fHx+fmZHxmk4n2diw4uKqOjq4gYFmO3a4VVT0PHvWMjzCGPjfIGB/TGkp29s7pra2HyEkEkmHpxFC9+7VxMVVIYRCQ+95e8d4e8cEBydkZjYjhG7frp4z586yZQ/lMz9/3rpgwf358+/n5XX8+2r/KBIJv3y5LYkkUtWoz6ze+sOpy+zuACX6WEtLQz09JRKJEBMzKyTEoqODp6+vRKeTZs40UVamKClRW1uDs7KcpVKZqmq7KiOnt6aT20VTU2MRCcIHey2NNY2F/cmurhIKhRAe7iMSya5fL9uyJU3+GEBZmfIudueHDwL2x1y5UsrhCKOiyhFCUqksN7dj3bq344y0tg42Nw8ihF68aI2PD7h3L2jtWvugoLtVVb0//fTy/Pnpfn4mq1Y96u7mffZZ0t69EzZscAwIiBeLpf+y2j8qKqpiw4ZUKpWnzDRd7PvcfaLxRJ8yHk9iZMTi8/kcjkBT87StbYRUKj106LWaGk0ikQoEks8/18Hh8H19D/A4WUebWV+PsYaGIYtFtbVtlMlIDia0OeOUtFRNExJq37zpNTVlSiTSJUts7t4NbG7maGnR5X84wG+CgP0BUqnszp3qiIgZN268TYKpqYqREePq1dJ/mTMuLmrPnp1cbqGCArGra+jgQS9NTQUvL30uV9TRMbRuncOYMSoTJuhqaCgMDor+fbW/H48n/uGHFw8ezP3qK6PyIq6LJ+3SiczXz3qFQhmRONDbO+TnR54xQ2n3bvtNm5wNDJTWrLEnk4lCoSQqqpXBwBkxWwl4/Pa5mmtmEJWVSygUXGjoJwgNeH9dMSRozK3Wz8wUm5ioKCtTiETcokXWZmZMPz8TsVjW0cF9Bzv0IwCPDv+AjIwmR0dNW1s1RUVyQUGnlRULIaSqSl2zJvnkyTyEcCEhFjU1fS0tnHVruyhk9SNHSplM0unTBVVVvVVVPYODIhMTlUuXig8fnoQQ+uWXfDMzpooK5cmTxl+v1sFB478VgMWiWVioDn90cNBobByws1Oj0YgbNy5sbj4YHp6OEHOC5+KMDOHLlzFC4eS+vqLW1s7Gxpbk5B2bNj1WVaU8edKIwyFDQ8XCQm59hzOZiLuZ1a/KEGpr6z16tFRPT2n37jY6IzO9lhUQ6FlaKqbTSQQCzsCAUVPTZ2Gh+vx566pV9kQi3EX8XaCx7x+wcuWjrq4hNzftpKQ6Dw+dH36YYGcXoaGhsGWLy+3bVTKZrLl58MKFaRYWFxLD3ek0CmeobefJ3UVFRQihPXuek8mE8+eLamtXNTYOrFmT7OSk+cMPEwgE3L+s9uBBr99fpOzstqNHc6Oj/eUf+Xwxm83T1lZQUTkcElIpEgUvW2Z78+bdFy+6Cgv3IoSamjiPHtWvX59y4oRzZGSriUnSrViCUGRiaBT77FmKpqYmQsjDIzIpKVh+lbV06cOBAcGdOwF5eR0rVz6SSmWzZ4/Zu9fz3e/cDxQcwX4vgUCSlFR35cpMIhFnZ6f++eepe/Z4Egi49naumhp1aEgskUh9fAxOnjyJEM3GjGCoo/b4RbWCgsKdO9U5Oe0UCkFdnSaRSHt6eEFBd8PDfZycNP/jag8cmPj7nzLZ2qrl5XUMDYnkncVfv15eUtJ17NhkIpGIELp2bSZC6MABCYslSE9vam0dXLDAauVKu+++e2Jmpq2k1Dl37txNm3RDQrKfPMnU1HzbccCLFwuH13/lygz5hJOTprzzbfCHQMB+r/v3a6ZMMZwyxUD+8R//yMnKaqZSiWfPeoeHF+XmtjU1DdbXl6kr5uJwXsbeL/B4JJVKaLSQ8vLu9PSm16/biUS8sjLF3T2yrY17+nTBrVtV8+ZZenhojx+vu25dSlbWfE1NhX37XixcmBgV5f87S0Wnk77+2m369Ftr1zr09PCOHs1NTQ1FCCGEy80dDAu7WlMjLCwcDAriGhsrf/FFmkyGKivZLBZh0iTTrVsfZ2ebEol8MzMNfX3olgMTcIr4l5SWshUVyYaGjKVLH9bV9b98WXPrhPnRCG55TT+HuyszK6O6umndusa6ujWGhueOHPH+9cCQERElDx7UxcbOCgiIX7zYeu5c859+yj59Oj8w0OyPvmpVUNCZnt5EoxEDAsw0NRUQQl9+mfDo0ROJRCKVdhkaDqxevTw4OLiqqjcpqU4k4jg54ZWV6Wz2YF2dMplMWLDAikIhvONdAxBCELA/YceOzNWrx8oHKDl7tvDUqfyXLxcaGZ3fvt01LCx9oouooEJxiCeWyuodHBwuXfIePz5+zZr+Y8foS5YwLlxYjcfjxWLprFl3Vq0ae/lyiaoqFf3fmdjgoOjx44bU1IZ3+C7j0NBQdnY2Dodzd3en0WgIodevX+NwuLa2Nh8fHzIZ+hLFFtym/8OKiroGB9+2K7e3V5dKZY6OV4aGxJcuFTs5qWcX9/VzhoQiMZFoVFo64O4er6xceS+6RybF37jebmh4xNX1+rRpN7u6hs6cKdi61fnq1dJt21zla1NUJCkqvsvf+GfPWlasSPP29tbV1d2y5aa/fwxCqL29/enTmi+/bE9KaiKRjhQVdclnnj//fmFh1zvcOkAQsL8Ij8dZW7MMDJRFIklz82BpaT+JpLdokYzFoqSlzZ8507ShYVlv96Mfl3ricCgmTJXPr1FUJJWVdYvF0mfPWhYsSHR11fTyipK3/LC1vTxv3r3o6AoNjVOFhV2trYPy71VUTurrn21oGEAIBQcnODhc2bAhtbNzCCF07lyhru5ZV9fr9vZX5s69K+9oXm758qSBAaF82szMbN8+v+rqzp9+utXd3X31av/p09MoFMKECbpr16ZIpXAWgxW4yfFnrFz5SFGRhBAaGBDq6iqWl3dradF37/ak0VoWLiyKiiZKJcIZMy7w+YoMBgdHYDua8mUydC2tv79fp6ODw2YP0ekkS0tVJpO6YoXd5s1PcnM7GAyylpbiuXM+P/74oqyse8GC+wkJgQKBpL2dO2aMSmMjZ+nSB52dvIaGgT17xhOJ+LVrU27fnoMQWr/eYdeucQihy5dLNmxIjYmZVV7evXVrelJSXUiI+XCZs7Nf1r3Z/923i6jELIHY9O7dYj+/rQ4OGlQq8cSJvC++cH4ne+bx40YeT+Tvbyr/eOpU/oYNjsXF7Nu3q+TfODtrTp1qSKUSZTJ0+3ZVXV3/1KmG8kd/QqHk7t039fUDdnZqvr7Gw+vMzGx2c9OiUkfl7yocwf6MEycm378fdP9+0OHDXs3NnBkzjPF4HIVCiI+/pKKK1zVgqLBoMnzy5MnKubmCsLAj47/8UiqT3XkuVlZWGhjg4/GIwxkqLu6sru64cKE4P38xiYRXVCSz2UMqKhSEkFQqCw21lEhkBAJucFC4ZIlNYKBZUVFXW1uHUMhLSEiYO9dAfkD7teXLbV+9aheLpWZmzOho/3Hj/r/W7hwOZ66Ddtg0bQVy8OEAwuDgoPz777/3uHKl9N/X9uekpjYsXJjY2Ph2bb/8ko8QKirqKilhu7hoOTho3LtXM3PmbYTQvn0vkpLq9PWVPv30fkVFD58vnjw5tqSEbWCgdOlSibwzLJFImp3dtnTpw9H7rueo/Ksw4hQUSHQ6ST5haqqyfbur/I0smUxmaonTNVCd7Kf1/aZIXV2N775z2bkzK6ewyNo6duPGSUQiKSenXVOzvaT4jYG2UkOLgplZs55eqIpKSX29poFB7ldfhff0uKuqWsfFVU6fblRfP9DTIygr637ypHFwkGfr1Crgm9c3cSZOPLJ9+7x/L5iWlkJn55COjqKyMoVI/Odfz9bW1uLiYoTQXHt8frOMQRW3tLQLhUKEEJVKPHJk0vr1qUpKf/7y78qV0vr6foRQTk773Lnm69en3r8fhBDq7ubn53cihMaMYfr5mfT1CdrauDdulB89eq+8vP/48QB1dcXc3I7IyDI6nRQUZLZ1qwtCKCDAbOXKRxKJrKamLzq6QiiU/OmCjTg4gr1L69evL84tzs8uPX3giJ2NnaKi4rhx2ra2ag8fsolEIoVCuXixOCOjqaRkQFvd4B9h08hkyrOnNbm5uQ0NDWQyc/78NUuX7mtoMJJIZFZWrF27snA4JJFIHz9u0NZWEInw7E6L/j58SyOzqQl9+unb4fDu3KlWVDzOZvM6O4caGwcqKro//fTe/zWPlA0ODj18mJKenj80pDEgIHP4fLFEMiQU0umMBw+yu7s5CCFvbwNtbXpqagObzZNI3l6PiUTS4mK2vC3yb4qIKNHRUXR21pRIZPfu1bBYtKioitzcjt5e3uHDOQih2tq+iIhSe/srV66UkMlNu/empTx+4eMzffXqpKSkurt3a7KyWmbMeHtaSKEQrl2bSSDgLC1Vjx71NjEZxV2jwhHsDzt40Gv4v9zamrVnjydCSE9Pado0Qw0Nq6gbtDVrsvZ8u1BLy+XRo3qE0E8/feLpeUO+yIIFVitW2Pn775r1yVhtdaoqg9wz0FVeXi6TyVgsenh48969ngi9HBwk5Od3jhnDZLN5JBL+2LHJQqEkM7OF0y/gDeGkUqSp2REeXrRjh5tYLK2r61+zxv7mzcriYjafL1m1KqW9fTAvr5PD4ZeXFzQ19axcyR4cFJNIqK9vYkpVBQ7X97KtmEJZ5ehIrK5umDQp8t69kEOHvBobB776Kj05OYTFojU2DixZ8tDBQf3589aEhEAtLfpv7pbJkw1MTVWePWutquoJC3MPCUmYMEFPXV0hI6PRyorY0sL54YfnPj6GT59WqWl3JhX88OP2woaa5r6+2oEBIkJIKlXE4f7ZfqW5maOmRhul112/Nuor8Pezs1MbnlZSIltbsyore5qbOUeP5vJ4orS0xp9/9l22zFaeLoSQoiLpp58+8fe/PXv2GBqNaGXFcnNzu3onqrO7tHeASVPwUVX1RChRKJQIhdIDB7IRIgsEkmXLFB8+5PB4YjweLVlyYnBQpqGh2NmpgsNJECJ2dVkfPPjq9et2FosqEEguXSrmcIRkMtHGhpWdvWDz5gclJW0ZGbxTp9hTpphIJNKLF31xOCSToYCAW5Mmkbq6VNXVFbZsce7s7Ny6NTE6OnfcODOhUFpZ2Ssv8759L/fu9Zw4Ua+qqnf4mcT/duJEHpNJvXv3zdixapaWqjt3uq9Zk0KjiXq6C44cfoUjSFRUPPftczh48GX4RbNnjzsbariqahqeDmI/P69t2zI8PHQSE2stLVURQjIZmjAhKi9vyQcQMDhFfAcMDBhXrszw9TUKDbXMzJy/fLktQsjNTevzzx3lM/j5mTx/vkBD4+0I4gcOBMfG7dMwNVVmqru7Wy5f/lAms2pr6ycS47ncSDy+a8IE3Xv3RA4OimZmFJlMrMYwIOAN9TU66XTZ+fOTjIxoRCJ+aEj8/ffjOzqG7O3VIyJmGBoy9u3z7Ooa3L79RmNjd0mJ0M/PpKjos+vXy9atc8DhkFQqa2/vUlZ+cPz4llevYs6cyTtzpmBwkHLqVJC2djeN1peePs/R8W1D/qKirrNnC9zcrm/enMZivR17Zc+e50ZG511dr48Zc2HOnDt8vhghdOtWlbt7ZG5ux4MHtWpqNBMT5devO/bte8li0QgEXFcXf0XwTLHYXiSwra/vf/68YNYsby4Hndp/72VG490bZBLJ+eTJfCUl0pdfukRFlX///bPY2Mrg4LuzZ4+RP4If7aAlx4jJzm47cCD7zp0AhFB7e/u8eSk7d9q1tfGeP+/287PcsOHx4sXWZmbibVsvnt69srtXmJhR9SS7/+5d1/Dw8MbG/uLiiQYGvS0t+kQiwdlZs6amW1+fUFHBNzJSaW0dYrP5SUlzvbz0lZSO5+UtNjdXffSofsmSy1yp1NqfpKieLsth+fl9lZra0N8vmD3bODq6MCTE6PLlZhwOPX48b86cOxs3OvX1CXbvfjZpkv69e0EIIWPjcEtL1VWrxsbHV7961fb9954bNqQODAgNDRlNTQMIIUNDxoEDXps2pfL5ksFB0YQJqhnpzSwmg90rGGdPKqjkODmZUKkkFxcGh5MRG6vs5KQ3bZqFl5fe8uVJxcXL+HxxXFx1a+ugvb26j4/R8I66fLnk008tR2mvjKOy0B+SBw9qDx3KQQiVlg7ExXVMm2b88GFRTk53Vxf3zJkCe3u1Ib7iw8zy2kZyduhTuugAAB6vSURBVCFXLCGHhb1QVaWz2ROJRBGbLTI0FJiZGfb39+3dax4WVm1hoaGiQqHTKVu3mm7fnm5srGJnp/76dYe5uer06UYEQrjPtxt6G6hK2tNTXx158uTmtm2uly4Vf/llRn39Z7m5L2/dkm3Y4P7qVZumJn3CBN0FCxK3bHEJDy9CCPH54q6uobAw13Hj6C4u4ydOjDE3Z/J44kmT9C9ccPXyimprI9Jo0tu3q9hsHg6HcDhkaIiotDZL06HqOtarYo6DA+PVq449e8YbG6t8801Td/eAk5PBl1+6DN9WoVKJCxda/fsukp8RjFJwijhiGAyyra1aWxvXzU37/v2g0FCLlhbukyeNW7c6X7/uj8fjV6ywe/AgeO3aKQlP8l8U5E73LaBSCeXl5IoKK19fa4EAh8craGg0NjRwWlrwixdPkclwvb388eN1eDxxenpTcXH3ihV2N274/fDDi8TE2p4evrr6uIwjYoRQa2EnjRbY2jqYl9fx7bdPhUKJp2dscjJRJpNpabEDAkzMzZmWlpcEAklJCVsqlV24UOThcUMmk65Zk6Kvd8HU9EhrK3fFiiSBQJKV1Wxr+71BV45ULC0rbsjKemNoSKZQ0LhxlfHxb5ycDFR1+ARKO52uUFWFSkuXf/21+7x5Fq9fL9661dnZWRMhRCDgiouXjfB/BmYgYCPGyor1ww8TEEJkMp5OJ50+PTUw0EwkkmzZ4mJjw6LRiGPGqNDppCNHgrW0nGxszPfv38Vk0uzs2tTVJRQKQVNTQSbDTZigyWKpcLlihJC3tz6BgNPSoq9ebZ+d3TZzprGdnZqxsXJi4tykpLplyx5OnLiURYx/diqy71nC2rV+mzen+fnddnPT9vc3LSxcWl7era3NotHot26l9PTwNDQUmpoGDAwY48frbN36JDU1hMHIDxwv0ldXdjOjisXiTz7Rp1AIUqlkiGtbLXQkImRHaXBxqW9sFPH5bB9nZZFAuaK00tTUordXl8fDGRoq6+kpyuuurEyhUj+K9vtwDTbCLl4svnSpeOJE/b4+/uPHjefP+0yapI8Qcna+xmbz+vsFYjFfJm5SoikPCcp5InepFCeTifF4vLZ2M5fbrKXlMWOGa3h4kbk5UyCQIIRLTAwaPz6yo2No+BbcsWNvX5M5fbpg8WJrhARKSkoIoYaGgcWLHzx8ONfR8WpBwRI+X8Llih49qn/ypCItrZVMprDZQ1ZWbKEQX1qq7ObGzskRH1tt96mXmkw2qDG/ccYM/aysDqlULOTxyg3is3jaKzs/mRPYFx/PwuOE3uN0XxX1qTHFAmk3hWJCJOKXLbPp6OAeOzZZXqpvv33q4KAxd675f9kxHwi4Bht5pqYqvr5GRCL+2LHJ8veywsOLCgs79fUZ5ubMoqK7JhoTGArE8iZlqVSqr89QV5d1dQ2IRHrTpzs+fMgJDy9kMmkODhrq6grHjr22tLwob2gybpxOXNxshBCZTOjoGIqIKPnhhxfz5lmwWEry7dbW9pmYKP/7K5tffOHc0yPp6OiRSPqYlPaQAJNdR1B15aBUarj5XNcPUWwOT4AQpbq6l8+XkkhEIgU/tnEiAYdwBOnTp3qqqrKeHkFvP09Xk1JVJySSVHA4jrIyNSamsq+P7+9vOnWq4Uju7r8XnCKOPENDhpeXvqenrjxdr161/fDDCzMzZmpqyIkT3iKRiZ0xRVWJYKSJ19N7Wl+/xsuLKZXSJk406ejoUFUVMRjElhaOqipNR4dOpRIHBjb9/PNEKyvW1q3OdDqJTieRSHgcDllaqhoYMH69XSMj5bq6foTQZ5/ZnTw5paCg89Gj+oiIGcnJDRUVHImEymaT27ssNdUmrl9o6WLbt3p1g4VFHXtAZG7JZbGoyckL16yxp1KJJibaanpjyCpGe/ZM8vLSx+Hwc+cq1DT9KBAewBP4c+eau7hot7WtKyhYkpoaumFDam8vf2R29EiAU8QRdvFicX19v/xiTG758qSCgk4KhRAZ6WdqqrJ06Y6MRxVE/NjGTrR0uai7u6q7uzs3N8DTs6U0t4VENG1mIxlS2bXL4/bt6uZmzrJlti9etBUUdHh46MhXuG/fBE9PXYTQJ59ExccHsFi04W1Nm3Zz/XqHwECzoSGRsXG4vj7D2lo1JqYiN3cJk0k1MzspEZM+Cza6freZSun5fq/2xInBTk5X161ziIgo1dGhr13roKenmJbW2NTEkTfYzcycb2l5cdWqsenpDUuXGn/5pReB8FFca/03ELAR1t7O5fPFRkb/bG7n5RVNp5OWLLEJCBhDpRJlMtnWrZGFhS1VVRSe4NLOg0tFQtG3n3fjcTmfz1p8OXmAqSjqF7HHjLHfuNFp587Mq1dnrlyZ5O6uc+7c22HyqFQigYBD/ylg7e3czz9/XF/f393NI5HwlZUrz5wpSE9vMjVV+fxzRyenoyJBp4UxB4+Xvci31NNTUFRUkslQefln+vrnUlJC5sy5Ix9UViKReXpGdnXx+HzJ5MkG167NbGri+PvfLixc+vfuzvcOXIONsH9v5mdkpKylpZCW1ihvzrttW0Z0NGfXLp/z5x+LcHNCl4cihPZtuzrE9SISkJku2deZ90sSLiTE/Ny5QgqFqK/PoNHIZmZMeXv/39z6rVuzEUIdHUPu7tf37n0+a5bp2rX2eDyupWVQS0tnxw6LsrKyxkZ+UZVILD5SWytmMFb393PLypaHhxfp6Ly9K9jWNkijkd68WdTezlVQICKEGhoGxoyBjnQgYO+fFSvsvv32qaGh8qRJMerqtISEmgsXfIaGxMbG5Fe5AyGT0ggEHJ+Hd3Bouf64kkQy/eVe2uHj2w4cKJo61bC4uOv27Sp7e/XU1AY+/+1bHs7OmsHBv3GzTlNToaBg6a1bVUeP5ubktB886OXsrFlfzw0PV+Rw9JqaeDJJSsKpY1SytlNAuqPjKUNDQ0dHjcuXfeWL//jjS/kggNradJkMnT1beP162e/vG+tDJgPvnytXShwdr4wdG+HgEJGR0SSTyc6cyVdTO8Zg7CSRd5Apm/z8lkokkkWLrsyadSQrK1cmk0VFlU+ffuvp02YPj8jXr9vS0xuH/1VUdMtXm5/fIRJJ/uMWk5Prs7Ka5dMNDf0WFhebmznjxl2XyWS5ubm3b98hEfdwC8vepOZbmhwODQ399bICgdjW9rJ8ms8Xz5wZt2fPcz5fjMmuGW3gCPa+ePSo3tf3Vk7OIhcXrSVLbMaOVXd0vHr/flBJCfuXX/L37jWLi3NUUbEKCrq9cqXZzZst69c/bmggOzjYT5jghBD69FNL+Snl8+cL/tsm/ken3EwmZdOmtEuXfJlM6q1bVRYWzOEf4fF4IyNDhEuPeZBpamDU0d2tra0tFovlfZsihB4/bvzkEz359NmzhY6OGps3O/H5YqFQ8lde4vwwQMDeIy4uWrGxlS4uWgih2NhKV1cthNDatfZXr5bExORv2zbb3/9+WNj48PCiZ8/my58jT5gQVVLCtrVV+41V/09WVpcUFEiHDnkdOJD9/HmrubnKtWt+PT2C+vqBBQsSlZUFRCKRSDRct7udxTqmyFhEobjb2Z3T0GAODopravodHTU8PXXGjo3w8NC5e7dGR4ceG1uJEHJw0IiNnYUQYrN5t29Xy2Sy+fOtGIyPK3LwHOw9Mn68zosXrfLpp09bxo/XPnbsGJ2uUFX149mzLfHxjXp6SgKBJCTEYriVxtOn8/9iul6+bDMzY5LJeG1tekTEjIULrQIDzQkE/LJlD86d80lOrre1VaFQCOrqdDqdlZr6VFPTUF1d18fHuLq6a8UKoyVLrGUy2YkT+fPnW5875+PqqsXnS7791mPjRsfCws6GhgGBQDJt2k08HtfVxfP2jvmr+2i0gSPYewSPx7m6amVnt5HJBAcHjaKiAm5rU1dkZENnp/uWpM2bqWVln505U6Cvr/QONxoZWbZwoVVz8+CNG+Xyx3EDA0Jf31tLltjMnm0qFvO++Wbu0JCPj8/YV6+YwwMsKSgoEYmkpqaXz58TrazUxGJaZGSJri798ePGV68W2dqyEELq6gqvXrUZGDCcnDRXrrRDCN26Vclm89TUaP+jPB8YOIK9X+bNs4yNrYyNrQwNtWCz2eMsLBRpNBtDQxuDfjMzioaGgq2tWk5O+/D8u3Zl3bxZ+ac3JxZLExNrZ80ynTvXLCqqQv7lgQPZs2aZXrtW+uzZCw5HuHT2L1Syx5PHvXPnKg/PExVV3tY2ePRYb3NbfXZucnZ2tUDATUqqU1QkUihvf6k+/dQyJMTC3V374sXpCKHXr9upVOJHlS4EAXvfuLtrv3rV9uxZi6enro6OTlph4ZvW1uS8vJrubgaDgRCaM2dMfn7n5cslXV1DSUl1N29WeXsb/OnNJSfXi8XSOXPiV61KHhgQZme3IYTCwtzDwtzHjdM5ePA1mURgKjPIZDyFrHr5ctvAgFDeg9rixdY0mmiij9qC1TPGTw6RIdb69azNm53NzJjHj+fJV87ni5ubOQghkUi6e/fzHTsy5W+XflQgYO8LVVWq/MlscLDF7NmmOByaNWu8trnelL17v7l79x//+MnZWQchRCTiHz6cW1nZs2xZUlxcVUJC4F85Jly/XnbixJSUlJCUlJBdu8ZFRpYjhOS3/n78cUJFBUkkErwsbP12vaa66oUxYxRXrhzb3f3PloTTZuO3fG/7wy9OZLLo4UOOjg69pKR7+J2U69fLDx/OkUplc+bcUVOjpaaGamv/duc5HxhoKvX+Kioq4nK5Hh4e2G0iKOhudLQ/mUxACHV0DG3a9HjmTBN1ddrMmSYIoby8jnHjrhEI7YqKryZNCsrLo6elzXNyunrsmLdIJP3ii4Q5C9+0NjmMsSQkRBd0d1r6+JjQaMS2tkFDQ2U+X5Kf38HjiZWUyPJ2Hv7+JnPmjPH1Nf6oRnKBgL2n+vr6MjMzfXx8qNSR7Ptlz57nHA6nt7fXxmZMaKiFnp5SeHjRp59aKimRlyw5x+OlZWer02jtTKa0osKrr28zQqigoHP37ucUCuHEiSkuLtdu357z4EEtny8+fjxv82bnb74Z93vacH0wIGDvI5lMlpqaamZmZmRkhPW2wsKyYmIqamtXyT9GRpYvWpQ4OLiZTifdulV16FAOny+USgXXr8+1t1f/jzMfP+5Oo7WtX99Ipw9QKLLLl6eUlysSifjNm5309c/V168mEHCDgyJDw3OVlSs+tpsccJv+fVRZWUkikf6GdMlJpbLXr9vlD7jj4qr09JQQQq9etZ0+XZCaGiIWcyMjMxcsuF9auhwhJBBI1qxJljfzjYmpIJMJJBIjPLxKIhEZ+fA6K2gBwRe3b1msofH26Zyx8XllZYpEIvv2W4+srObh0ZIQQjt3jsPh0K1bVW1t3NmzTeVDrn1g4CbHe4fD4VRUVLi6uv5tWwwNtYiJqUQIDQwIeTyxvIH/mTOF33wzTijkfPXVV7/8ssPevri7uxchFBBgxmbzaTTisWN5CgokBQUimYzv7e0hkPGuS7VNJynjCWNiYwsRkiGEhEKpUCgZO1a9rGz5F184375dTaEQXFy05P/weNxnnyUVFHQyGOTp02/9bfX9O0HA/g5v3vSNHRuxatWjkJAEH5+bHI4wLCxLVfUXkehtz+/HjuXicIfld8Bzc3O//LJ94sTb8h+dO1c4YULU9u0Zn32WZG19OS+vAyH07FmLg8OVdetSLCwu/vqY8Od4eOi8fNkqk6GEhDdz5oyRfynvUGDVqlWU9vYra9fSe8o2bfocITR1qkFnJ7enhy8USlauHIsQ0tVV1NNTwJMGWoukjdlSBebzxkZpXt79iIiIgQHepk1mWVnNw8OjeHjo+PmZyP/h8bj8/M4DByauWGHn72/yF2vxfoKA/R0uXSpevtwuPHz6zZuzvbz05UOxmJqqpKTUy2dITKy1smIhhGpqakpKODY2mmQyvry8W/7TGTOMDx3yunTJNzLSb8OGVITQwYOvzp/3OXNm2jffeFy4UPwXi4fH49zctLOz2+LiqoKCzORfyjsUePz48U/LlrlbWCgpBCUnvxieedw4HYFAfOZMAYGA8/TUNTQ0JiPaw128plzOQOtkIr6M15WdGHNTIBDn5V2dOtUwIaFGvtqIiNI9e57v2fM8MbEWh0PyDtvYbF5WVstfrMX7Ca7B/g4TJuhu25ZBpRKmTzeWD5b36lX7vHkWsbGVM2eaNDVx1NRoT5/m6unpicVDIpGfikrv9u0/DrddGuboqNHfLxwaEh0+PMnERAUh1NAwYGb2Di5d5s2zOHu2UCiUDvfv/X+vpVmkFRYaqDtEpfeaWWr/emYSiVBYuNTV9Toej8vJ6bC1NfHwYIpE6OHDN7qqg7HHjyc/7SyufNnXR3FwUImMLJs/3xIhZGHBtLNTRwgNdxASG1t56FDOOxyW+r0CR7C/w8yZJgkJgVyuaP36FA+PyIqKHoSQmRlT3hb21q2qkBALgUCQd/RobfhFTeVxbHbmr9su/ZqSErm/X2hmxuTxxF98kVZWxl692v6vl9DNTTsjo2n4/BAhNHGi3ooVdgLB8nk/8z22ZhAUbv/yy8lfz/zrvqybmgba27lPnnQ9fdqlrU1pbtdGCEUmNGup4zo6GBKJNCenXT687fAponwMjb17Xzx6VJ+RMW/8eJ2/Xov3ENym/zucOpUfEmIhPzhcv16WmdnMYtHGjdOuqOixtmadOJGXkBBIp2/vjpn0olyw9mRrc3fFlClTCgu77t0LLCjoZLN58uOeUCgxN79YV7e6vr4/JCRhxw63kBALrAsvlUo7Ozs1NTV/PbwQQkhf/1xT0xr59KpVj4KDLaZPN0II7d8fc/jnzBPfWmzeJ5o/q7RLOBQdHb12bYqDg8azZy0rV9p5eenLl+JyRaam4WfOTMPjcQihX8f7gwEB+zscPZpbXt69e/d4Pl/y3XdPnZ21OjuHxo3THjtWffnyJF1dxchIPzx+S3fMpA2nO4MnMEL3LxSLxceP59XU9NnYsNrauGFh7j09/H37XjAYlP37PwkMjF+zxl7ebxSZTHivBkaoqanZuXOnSCTq7Oyk0+nz589ftmzZ71mwv18wMCB8t+8KjDgI2N8kPLxI3rJ26lTDdescLl4strZmeXrqLl+etHCh1dSphjTaIj7/JkLzEbrOZDJ6enrkbZcWLbI+cuQ1QkhRkTxtmuHnnzvi8bjQ0HtdXUPyNc+ePWbLlnczhPm7sn17hoODRnCwSUhITF5ev4YGQypF2tqK+/d/4uCgsXjxg5yc9uGXnTMzP5X/gQgMjB83TmfHDrcRLfs79h795fuwrVo1dtWqsfr65+QtyletGisQSHC4w1euzJD3dFtTc9DFxXX8eOVbtyK6uoaWLHlQVtaNELpzpzoubo6qKvXYsdzo6IozZwq++spN/qbwe45CoWhqav70k4WycruFhUVWlnDPnqwbN2YihM6dmzZ8oih34UJxZ+fQCJUUQ3CTAxMpKQ2HD+fcuVMtf/5z8WKx/Na8XFpao3xMIF1dxbi4qp9/fvXgQeHNm88QInR343bvfu7sfI1GI969G/j69eJJk/SDgxPq6vpPnsxfv94xJ2fxrl1ZI1axP05TU3Py5Mk1NTUHD+5Pir+upaBQWlr6L/O8edOXnFy/atXYESkhpuAI9u7t3v08P79j6VLb4mL20aO5aWmhFy4UEQj44T7Z9+59weWKliyxUVdX6OnhHzz40saGLBZ3EYmtJSXGVlbaOjp0W1u1adNu3r49Z8kSm6tXS58+benvF7S0cOh00vCd9FHhiy/SVFQo9fVtA+1jWtBhCUJG+fnLlyuxWIoIoaAgs+3bXTdvTrt4cfrwoLsfEgjYu5ecXH/mzDR7e/WgIDMFBaL8BSplZYq8I/imJo6iIqmvb2jjxo21tRpMJtnFRSMrq4NH70ArstAvSoWFL7y8vDdudDIyUt6/P/vKlRnW1mpnzuRv2uTE5Yrmzbu3aJH1SFfxDzh2bPL06Ubr1m0sO9sSjjx2oCcqCK1bp759+1z5DM+ftxYUdM6ff7+9nSsUSnR1FUdXBf83CNi7t3GjU1BQvK+v8ZQphhs3OslffwoNtZC/2y9/6rV+faSvr6qamlpraw+F0icU1qEJePSJFN1C1dW56ur2CKGJE/XkZ4MpKfXLl9t1dHBv3qwMD58uvxs+Wnz1VcbNm5Vstn0OwpciWy2U3k1RiIzsz8m5p6REfvmyNTZ2VkvL2mnTbi5bZosQkqcrObn+wIFXlpaq9fX9iYlz//8HBKMJXIO9e/PnWxYXLwsKMs/KanZ2vtbSMogQ8vU1lp8CPXhQ6+JCF4lEe/bsweGoZmaaHR3dBIIq6qAghJAAaWmhjg5ufPwbHA6Hw+FOnMhra+MaGzNu3CifMsXAykp1RCv3Z4SFucfHr/x6j3UvXvH61CBlZWt3d5XY2FkXL04/eNDrxx9f/qdFsu7dCzx9eurOneM4HOHfX+Z3BQL27s2YEUehEKdMMTh61HvqVAN5g0MqlaCnp9TVNVRQ0LF8eZZYrHrlysveXj6FwmEwiASCJiphoU1UYjtx/fr1d+8GxsVVublda27mZGY2r1kzNiqqvLeXHxdXPXVqrKPj1ZGu4m84dMhLPtpyePh0VVVqdnZbenqTpuY4Ly+jlJRbiopKgYH0zz//fOzYsSdOrNu6VUu+VEDAGPk9ej5f3NPDDwq66+Bw5ebNylHdlSKcIr5jqakNZWXdenpnWSyqhoZCXV3/l1+6njtXiBAaHBRRqcTz56f7+BhZWh7fsWPFwMDS8vKOxYun/PTTtK1bUzU0nO7fZ5882f7yZYaHh05+fufTp/PljYARQleulLa3c0fjY6K0tEYmk9rVNaSkRGKzeTIZqqgov1tyd9K1Sd0l3XPmzKmurv71/Hy+pKGhPzk52NRUxcfn5pMnjX+lY5+RBUewd6yjYyg42PzNm5XPni1YutSWSiXq6yu9eLFQKpWVlrJVVCi+vsYiEXfvXmNd3e0REV6VlXvNzXUWLky8fNkfIZXgYIu0tFCRSCoWS0tKlg2nCyG0dKnNaEwXQigszP3QIa+IiBkWFqr37tUoKZGfPMm1X2+vbq9u5Gvd1T+vvLz81/MrK1MMDZXNzJh4PM7ZWauxkTNSJf/rIGDvHplMoNNJysqUgIAxPJ5Y/uXNm1WzZxvp6vLWrDn+8OHDp0+J3303YfHi8bq6jC1bnGfNMpVIZBQKYf16R01NhdBQi/r6/pGtxTskEEgEAklzM+fVq3YtLfq333oUFdlWRvf21+KSP6MiWaX83W35bAKBRCKRurpqXblSWl3de/9+zYQJuiNdgz8PThHfvfT0xrCwLLFY+vRp85Ej3vIvr10raWs7pY9TfVpp8eDBfnPzIzt3ag4vsm6dA0Jo715PhFBTE+fw4ZyjR71HpPDvnIODhvwdNjKZMGfOmBkzjBFCONysTZu6L5uz6bTSS+eWsFgse3v1zZvT5Iv4+ZmcPTvtm2+e3r375sgR71HdlQC0RXzHIiPLHzyoXb16rFQqu3PnjUQiPXVqamPjgJXVBR16zgJnt59TJWs9H6eyva9eXerk9DZj9+7VeHrqqqpST53Kj4qqOH58srOz5v/e0AeAx+NRqVTc6L0H/zvAKeK7Z2DA8PLS9/Y22LdvQnp6E0Loxo1yb28VRXLLZDOcnw2+tF3D0lJ29myhfP6eHv7atSkKCsSTJ/MKC7vS0+d9DOlCCNFotA87XQgChiklJXJ/v4DHE9+4UX7okD9Jh//z4/AB/uOseuaxY4skEtmkSTHr16d6eUX//PNEKpV4/nyRVCrbvj1jy5Ynf6XHefD+gFPEv49AIIiPj+dyuQEBAaqqo+95MfgTIGAAYAhOEQHAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAxBwADAEAQMAAz9P3SBuGcR5cFBAAAAAElFTkSuQmCC" /><!-- --></p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>    rmwcs <span class="ot">&lt;-</span> <span class="fu">rmwcs_solver</span>()</span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>    bionet_m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rmwcs, bionet_example)</span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plotModule</span>(bionet_m<span class="sc">$</span>graph, <span class="at">scores=</span>scores, <span class="at">diff.expr=</span>logFC)</span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Note that the weight increased, compared to FastHeinz solution:</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(bionet_m<span class="sc">$</span>weight)</span>
-<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## [1] 70.16602</code></pre>
-<p>Similarly, Virgo can be used to solve the instance to provable optimality, but in this case it produces the same results:</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>    bionet_m_exact <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(exact_solver, bionet_example)</span>
-<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(bionet_m_exact<span class="sc">$</span>weight)</span>
-<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(bionet_m_exact<span class="sc">$</span>solved_to_optimality)</span>
-<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## Error in check_mwcs_solver(solver): object &#39;exact_solver&#39; not found</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(bionet_m<span class="sc">$</span>weight)</span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Similarly, Virgo can be used to solve the instance to provable
+optimality, but in this case it produces the same results:</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
+<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a>    bionet_m_exact <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(exact_solver, bionet_example)</span>
+<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(bionet_m_exact<span class="sc">$</span>weight)</span>
+<span id="cb92-4"><a href="#cb92-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(bionet_m_exact<span class="sc">$</span>solved_to_optimality)</span>
+<span id="cb92-5"><a href="#cb92-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 
 

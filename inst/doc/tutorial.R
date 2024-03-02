@@ -117,7 +117,7 @@ print(m$solved_to_optimality)
 #  scip <- scipjack_solver(scipstp_bin=Sys.which("scipstp"))
 #  sol <- solve_mwcsp(scip, mwcs_example)
 
-## ---- message=FALSE-----------------------------------------------------------
+## ----message=FALSE------------------------------------------------------------
 BioNetInstalled <- FALSE
 if (requireNamespace("BioNet") && requireNamespace("DLBCL")) {
     BioNetInstalled <- TRUE    

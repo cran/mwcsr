@@ -17,7 +17,7 @@ void Component::add_edge(size_t edge) {
 }
 
 void Component::add_neighbour(size_t edge) {
-    adjs.push_back(edge);
+    adjs.insert(edge);
 }
 
 bool Component::operator<(const Component& other) const {
@@ -54,13 +54,17 @@ std::vector<Component> Component::get_components(mwcsr::Graph& g, std::vector<si
             }
             for (auto v: {g.edge(e).from(), g.edge(e).to()}) {
                 for (auto e: g.neighbours(v)) {
-                    if (!(visited.find(e.num()) == visited.end())) continue;
-                    visited.insert(e.num());
-                    if (solution.count(e.num())) {
-                        q.push(e.num());
-                    } else {
+                    if (!solution.count(e.num())) {
                         c.add_neighbour(e.num());
+                        continue;
                     }
+
+                    if (!(visited.find(e.num()) == visited.end())) {
+                        continue;
+                    }
+                    visited.insert(e.num());
+
+                    q.push(e.num());
                 }
             }
         }
@@ -78,7 +82,7 @@ std::vector<size_t> Component::component_edges() const {
 }
 
 std::vector<size_t> Component::component_env() const {
-    return adjs;
+    return {adjs.begin(), adjs.end()};
 }
 
 void Component::set_revenue(double r) {

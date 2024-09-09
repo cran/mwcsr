@@ -60,7 +60,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -386,9 +386,6 @@ simple <code>igraph</code> object with <code>weight</code> vertex
 attribute.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;mwcs_example&quot;</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">print</span>(mwcs_example)</span></code></pre></div>
-<pre><code>## This graph was created by an old(er) igraph version.
-##   Call upgrade_graph() on it to use with the current igraph version
-##   For now we convert it on the fly...</code></pre>
 <pre><code>## IGRAPH f86c56f UN-- 194 209 -- 
 ## + attr: name (v/c), label (v/c), weight (v/n), label (e/c)
 ## + edges from f86c56f (vertex names):
@@ -401,18 +398,18 @@ attribute.</p>
 ## [19] C00022_0--C00074_5  C00022_1--C00074_6  C00022_2--C00074_7 
 ## [22] C00024_0--C00083_0  C00024_1--C00083_1  C00026_1--C00091_0 
 ## + ... omitted several edges</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">V</span>(mwcs_example)<span class="sc">$</span>weight)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">V</span>(mwcs_example)<span class="sc">$</span>weight)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ## -0.7379 -0.7379  1.9294  5.9667  7.2931 38.1546</code></pre>
 <p>Now let us initialize a heuristic relax-and-cut MWCS solver
 (Alvarez-Miranda and Sinnl, 2017):</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>rcsolver <span class="ot">&lt;-</span> <span class="fu">rmwcs_solver</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>rcsolver <span class="ot">&lt;-</span> <span class="fu">rmwcs_solver</span>()</span></code></pre></div>
 <p>Now we can use this solver to solve the example instance:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rcsolver, mwcs_example)</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>graph)</span></code></pre></div>
-<pre><code>## IGRAPH dd6a025 UN-- 162 164 -- 
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rcsolver, mwcs_example)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>graph)</span></code></pre></div>
+<pre><code>## IGRAPH 34c258e UN-- 162 164 -- 
 ## + attr: name (v/c), label (v/c), weight (v/n), label (e/c)
-## + edges from dd6a025 (vertex names):
+## + edges from 34c258e (vertex names):
 ##  [1] C00022_2--C00024_0  C00022_0--C00024_1  C00025_0--C00026_0 
 ##  [4] C00025_1--C00026_1  C00025_2--C00026_2  C00025_4--C00026_4 
 ##  [7] C00025_7--C00026_7  C00024_1--C00033_0  C00024_0--C00033_1 
@@ -422,7 +419,7 @@ attribute.</p>
 ## [19] C00022_0--C00074_5  C00022_1--C00074_6  C00022_2--C00074_7 
 ## [22] C00026_1--C00091_0  C00042_2--C00091_0  C00026_0--C00091_1 
 ## + ... omitted several edges</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
 <pre><code>## [1] 1178.432</code></pre>
 </div>
 <div id="supported-problem-types" class="section level2">
@@ -440,7 +437,7 @@ as a sum of weights of its unique signals.</li>
 represented by an <code>igraph</code> object with certain specified
 attributes. The validity and the type of the instance can be checked
 using <code>get_instance_type</code> function, for example:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">get_instance_type</span>(mwcs_example)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">get_instance_type</span>(mwcs_example)</span></code></pre></div>
 <pre><code>## $type
 ## [1] &quot;MWCS&quot;
 ## 
@@ -462,7 +459,7 @@ represented as a tree.</p>
 <p>In <code>mwcsr</code> an MWCS instance is defined as an
 <code>igraph</code> with <code>weight</code> vertex attribute (and
 without <code>weight</code> edge attribute).</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>mwcs_example</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>mwcs_example</span></code></pre></div>
 <pre><code>## IGRAPH f86c56f UN-- 194 209 -- 
 ## + attr: name (v/c), label (v/c), weight (v/n), label (e/c)
 ## + edges from f86c56f (vertex names):
@@ -475,7 +472,7 @@ without <code>weight</code> edge attribute).</p>
 ## [19] C00022_0--C00074_5  C00022_1--C00074_6  C00022_2--C00074_7 
 ## [22] C00024_0--C00083_0  C00024_1--C00083_1  C00026_1--C00091_0 
 ## + ... omitted several edges</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">V</span>(mwcs_example)<span class="sc">$</span>weight)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">V</span>(mwcs_example)<span class="sc">$</span>weight)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ## -0.7379 -0.7379  1.9294  5.9667  7.2931 38.1546</code></pre>
 </div>
@@ -501,10 +498,10 @@ in original MWCS problem and additional <code>budget_cost</code> vertex
 attribute. Value of the budget not the part of the instance itself but
 rather a parameter to be passed to a function that solves an
 instance.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>budget_mwcs_example <span class="ot">&lt;-</span> mwcs_example</span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="fu">V</span>(budget_mwcs_example)<span class="sc">$</span>budget_cost <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="fu">vcount</span>(budget_mwcs_example))</span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="fu">get_instance_type</span>(budget_mwcs_example)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>budget_mwcs_example <span class="ot">&lt;-</span> mwcs_example</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="fu">V</span>(budget_mwcs_example)<span class="sc">$</span>budget_cost <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="fu">vcount</span>(budget_mwcs_example))</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="fu">get_instance_type</span>(budget_mwcs_example)</span></code></pre></div>
 <pre><code>## $type
 ## [1] &quot;Budget MWCS&quot;
 ## 
@@ -528,11 +525,8 @@ weights:</p>
 can contain cycles.</p>
 <p>A GMWCS instance is defined as an <code>igraph</code> with
 <code>weight</code> attribute defined for both vertices and edges.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="fu">data</span>(gmwcs_example)</span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>gmwcs_example</span></code></pre></div>
-<pre><code>## This graph was created by an old(er) igraph version.
-##   Call upgrade_graph() on it to use with the current igraph version
-##   For now we convert it on the fly...</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="fu">data</span>(gmwcs_example)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>gmwcs_example</span></code></pre></div>
 <pre><code>## IGRAPH f86c56f UNW- 194 209 -- 
 ## + attr: name (v/c), label (v/c), weight (v/n), label (e/c), weight
 ## | (e/n)
@@ -545,10 +539,10 @@ can contain cycles.</p>
 ## [21] C00022_2--C00074_7 C00024_0--C00083_0 C00024_1--C00083_1 C00026_1--C00091_0
 ## [25] C00042_2--C00091_0 C00026_0--C00091_1 C00042_1--C00091_1
 ## + ... omitted several edges</code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">V</span>(gmwcs_example)<span class="sc">$</span>weight)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">V</span>(gmwcs_example)<span class="sc">$</span>weight)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ## -0.7379 -0.7379  1.9294  5.9667  7.2931 38.1546</code></pre>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">E</span>(gmwcs_example)<span class="sc">$</span>weight)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">E</span>(gmwcs_example)<span class="sc">$</span>weight)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ## -1.2715 -0.5762 -0.1060  0.5452  1.0458  8.5829</code></pre>
 </div>
@@ -586,11 +580,8 @@ weights are not repeated.</p>
 <code>signals</code> attribute defined for the graph, containing the
 signal weights. Specification of multiple signals per node or edge is
 not yet supported.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;sgmwcs_example&quot;</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>sgmwcs_example</span></code></pre></div>
-<pre><code>## This graph was created by an old(er) igraph version.
-##   Call upgrade_graph() on it to use with the current igraph version
-##   For now we convert it on the fly...</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;sgmwcs_example&quot;</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>sgmwcs_example</span></code></pre></div>
 <pre><code>## IGRAPH f86c56f UN-- 194 209 -- 
 ## + attr: signals (g/n), name (v/c), label (v/c), signal (v/c), label
 ## | (e/c), signal (e/c)
@@ -603,11 +594,11 @@ not yet supported.</p>
 ## [21] C00022_2--C00074_7 C00024_0--C00083_0 C00024_1--C00083_1 C00026_1--C00091_0
 ## [25] C00042_2--C00091_0 C00026_0--C00091_1 C00042_1--C00091_1
 ## + ... omitted several edges</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">V</span>(sgmwcs_example)<span class="sc">$</span>signal)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">V</span>(sgmwcs_example)<span class="sc">$</span>signal)</span></code></pre></div>
 <pre><code>##  chr [1:194] &quot;s1&quot; &quot;s1&quot; &quot;s1&quot; &quot;s2&quot; &quot;s3&quot; &quot;s4&quot; &quot;s4&quot; &quot;s4&quot; &quot;s4&quot; &quot;s4&quot; &quot;s5&quot; &quot;s5&quot; ...</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">E</span>(sgmwcs_example)<span class="sc">$</span>signal)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">E</span>(sgmwcs_example)<span class="sc">$</span>signal)</span></code></pre></div>
 <pre><code>##  chr [1:209] &quot;s103&quot; &quot;s104&quot; &quot;s105&quot; &quot;s106&quot; &quot;s107&quot; &quot;s108&quot; &quot;s109&quot; &quot;s110&quot; &quot;s110&quot; ...</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">head</span>(sgmwcs_example<span class="sc">$</span>signals)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">head</span>(sgmwcs_example<span class="sc">$</span>signals)</span></code></pre></div>
 <pre><code>##        s1        s2        s3        s4        s5        s6 
 ##  5.008879 -0.737898 -0.737898 20.112627 19.890279  2.069292</code></pre>
 <div id="constructing-sgmwcs-instances" class="section level4">
@@ -615,8 +606,8 @@ not yet supported.</p>
 <p>Sometimes, construction of SGMWCS instances can be simplified using
 <code>normalize_sgmwcs_instance</code> function.</p>
 <p>Let consider an example graph obtained from <a href="https://github.com/ctlab/gatom">gatom</a> package.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;gatom_example&quot;</span>)</span>
-<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a><span class="fu">print</span>(gatom_example)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;gatom_example&quot;</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a><span class="fu">print</span>(gatom_example)</span></code></pre></div>
 <pre><code>## This graph was created by an old(er) igraph version.
 ##   Call upgrade_graph() on it to use with the current igraph version
 ##   For now we convert it on the fly...</code></pre>
@@ -636,7 +627,7 @@ not yet supported.</p>
 with weights specified directly as vertex or edge attributes along with
 <code>signal</code> attributes, which is a very practical intermediate
 representation. However, it is recognized as a GMWCS instance:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="fu">get_instance_type</span>(gatom_example)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="fu">get_instance_type</span>(gatom_example)</span></code></pre></div>
 <pre><code>## $type
 ## [1] &quot;GMWCS&quot;
 ## 
@@ -644,20 +635,20 @@ representation. However, it is recognized as a GMWCS instance:</p>
 ## [1] TRUE</code></pre>
 <p>Let convert this representation into a valid SGMWCS instance using
 <code>normalize_sgmwcs_instance</code> function:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>gatom_instance <span class="ot">&lt;-</span> <span class="fu">normalize_sgmwcs_instance</span>(gatom_example)</span>
-<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a><span class="fu">get_instance_type</span>(gatom_instance)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>gatom_instance <span class="ot">&lt;-</span> <span class="fu">normalize_sgmwcs_instance</span>(gatom_example)</span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a><span class="fu">get_instance_type</span>(gatom_instance)</span></code></pre></div>
 <pre><code>## $type
 ## [1] &quot;SGMWCS&quot;
 ## 
 ## $valid
 ## [1] TRUE</code></pre>
 <p>And let call the same function with explicit arguments:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a>gatom_instance <span class="ot">&lt;-</span> <span class="fu">normalize_sgmwcs_instance</span>(gatom_example,</span>
-<span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a>                                            <span class="at">nodes.weight.column =</span> <span class="st">&quot;weight&quot;</span>,</span>
-<span id="cb44-3"><a href="#cb44-3" tabindex="-1"></a>                                            <span class="at">edges.weight.column =</span> <span class="st">&quot;weight&quot;</span>,</span>
-<span id="cb44-4"><a href="#cb44-4" tabindex="-1"></a>                                            <span class="at">nodes.group.by =</span> <span class="st">&quot;signal&quot;</span>,</span>
-<span id="cb44-5"><a href="#cb44-5" tabindex="-1"></a>                                            <span class="at">edges.group.by =</span> <span class="st">&quot;signal&quot;</span>, </span>
-<span id="cb44-6"><a href="#cb44-6" tabindex="-1"></a>                                            <span class="at">group.only.positive =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>gatom_instance <span class="ot">&lt;-</span> <span class="fu">normalize_sgmwcs_instance</span>(gatom_example,</span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>                                            <span class="at">nodes.weight.column =</span> <span class="st">&quot;weight&quot;</span>,</span>
+<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a>                                            <span class="at">edges.weight.column =</span> <span class="st">&quot;weight&quot;</span>,</span>
+<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a>                                            <span class="at">nodes.group.by =</span> <span class="st">&quot;signal&quot;</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a>                                            <span class="at">edges.group.by =</span> <span class="st">&quot;signal&quot;</span>, </span>
+<span id="cb41-6"><a href="#cb41-6" tabindex="-1"></a>                                            <span class="at">group.only.positive =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>The function does the following:</p>
 <ol style="list-style-type: decimal">
 <li>It extracts signal weights from the specified columns.
@@ -711,27 +702,27 @@ high-quality solutions for MWCS problem (Alvarez-Miranda and Sinnl,
 does not require any additional libraries.</p>
 <p>Relax-and-cut solver can be constructed using
 <code>rmwcs_solver</code> function with the default arguments.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a>rmwcs <span class="ot">&lt;-</span> <span class="fu">rmwcs_solver</span>()</span>
-<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rmwcs, mwcs_example)</span>
-<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>rmwcs <span class="ot">&lt;-</span> <span class="fu">rmwcs_solver</span>()</span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rmwcs, mwcs_example)</span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
 <pre><code>## [1] 1178.432</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>solved_to_optimality)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>solved_to_optimality)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p><code>rmwcs_solver</code> supports Budget MWCS instances and its
 special case where all budget costs are set to one and called MWCS with
 cardinality constraints. In <code>mwcsr</code> such problems are
 represented as Simple MWCS problems and maximum cardinality is passed to
 <code>solve_mwcsp</code> funciton as argument:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a> m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rmwcs, mwcs_example, <span class="at">max_cardinality =</span> <span class="dv">10</span>)</span>
-<span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a> <span class="fu">print</span>(<span class="fu">vcount</span>(m<span class="sc">$</span>graph))</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a> m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rmwcs, mwcs_example, <span class="at">max_cardinality =</span> <span class="dv">10</span>)</span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a> <span class="fu">print</span>(<span class="fu">vcount</span>(m<span class="sc">$</span>graph))</span></code></pre></div>
 <pre><code>## [1] 10</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a> <span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a> <span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
 <pre><code>## [1] 134.9068</code></pre>
 <p>To solve Budget MWCS passing budget limit is necessary as well:</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a> m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rmwcs, budget_mwcs_example, <span class="at">budget =</span> <span class="dv">10</span>)</span>
-<span id="cb53-2"><a href="#cb53-2" tabindex="-1"></a> <span class="fu">print</span>(<span class="fu">sum</span>(<span class="fu">V</span>(m<span class="sc">$</span>graph)<span class="sc">$</span>budget_cost))</span></code></pre></div>
-<pre><code>## [1] 4.625048</code></pre>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a> <span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a> m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rmwcs, budget_mwcs_example, <span class="at">budget =</span> <span class="dv">10</span>)</span>
+<span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a> <span class="fu">print</span>(<span class="fu">sum</span>(<span class="fu">V</span>(m<span class="sc">$</span>graph)<span class="sc">$</span>budget_cost))</span></code></pre></div>
+<pre><code>## [1] 4.560631</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a> <span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
 <pre><code>## [1] 163.6254</code></pre>
 </div>
 <div id="rnc-solver" class="section level3">
@@ -744,17 +735,17 @@ of problems of this type is preferable. No budget and cardinality
 variants are available.</p>
 <p>The solver can be constructed using <code>rnc_solver</code>
 function.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a>  rnc <span class="ot">&lt;-</span> <span class="fu">rnc_solver</span>()</span>
-<span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rnc, gmwcs_example)</span>
-<span id="cb57-3"><a href="#cb57-3" tabindex="-1"></a>  <span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
-<pre><code>## [1] 1295.657</code></pre>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a>  <span class="fu">print</span>(m<span class="sc">$</span>solved_to_optimality)</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a>  rnc <span class="ot">&lt;-</span> <span class="fu">rnc_solver</span>()</span>
+<span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rnc, gmwcs_example)</span>
+<span id="cb54-3"><a href="#cb54-3" tabindex="-1"></a>  <span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
+<pre><code>## [1] 1295.519</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a>  <span class="fu">print</span>(m<span class="sc">$</span>solved_to_optimality)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>And for SGMWCS instance:</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" tabindex="-1"></a>  rnc <span class="ot">&lt;-</span> <span class="fu">rnc_solver</span>()</span>
-<span id="cb61-2"><a href="#cb61-2" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rnc, sgmwcs_example)</span>
-<span id="cb61-3"><a href="#cb61-3" tabindex="-1"></a>  <span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
-<pre><code>## [1] 248.1521</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a>  rnc <span class="ot">&lt;-</span> <span class="fu">rnc_solver</span>()</span>
+<span id="cb58-2"><a href="#cb58-2" tabindex="-1"></a>  m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rnc, sgmwcs_example)</span>
+<span id="cb58-3"><a href="#cb58-3" tabindex="-1"></a>  <span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
+<pre><code>## [1] 253.3839</code></pre>
 </div>
 <div id="simulated-annealing-solver" class="section level3">
 <h3>Simulated annealing solver</h3>
@@ -767,33 +758,33 @@ always set to <code>FALSE</code>.</p>
 restarts of annealing solver with different temperature schedules.</p>
 <p>The use of this solver may be beneficial in some cases, although
 there are no generic guidelines.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb63-2"><a href="#cb63-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">15</span>) {</span>
-<span id="cb63-3"><a href="#cb63-3" tabindex="-1"></a>  asolver <span class="ot">&lt;-</span> <span class="fu">annealing_solver</span>(<span class="at">schedule =</span> <span class="st">&quot;boltzmann&quot;</span>, <span class="at">initial_temperature =</span> <span class="fl">8.0</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">**</span> i),</span>
-<span id="cb63-4"><a href="#cb63-4" tabindex="-1"></a>                                <span class="at">final_temperature =</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">**</span> i))</span>
-<span id="cb63-5"><a href="#cb63-5" tabindex="-1"></a>  <span class="cf">if</span> (i <span class="sc">!=</span> <span class="dv">0</span>) {</span>
-<span id="cb63-6"><a href="#cb63-6" tabindex="-1"></a>    m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(asolver, gmwcs_example, <span class="at">warm_start =</span> m)</span>
-<span id="cb63-7"><a href="#cb63-7" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb63-8"><a href="#cb63-8" tabindex="-1"></a>    m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(asolver, gmwcs_example)</span>
-<span id="cb63-9"><a href="#cb63-9" tabindex="-1"></a>  }</span>
-<span id="cb63-10"><a href="#cb63-10" tabindex="-1"></a>  <span class="fu">print</span>(m<span class="sc">$</span>weight)</span>
-<span id="cb63-11"><a href="#cb63-11" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## [1] 955.6224
-## [1] 1157.73
-## [1] 1216.681
-## [1] 1218.817
-## [1] 1222.339
-## [1] 1222.339
-## [1] 1222.339
-## [1] 1222.339
-## [1] 1222.339
-## [1] 1222.339
-## [1] 1222.339
-## [1] 1222.339
-## [1] 1222.339
-## [1] 1222.339
-## [1] 1222.339
-## [1] 1222.339</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb60-2"><a href="#cb60-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">15</span>) {</span>
+<span id="cb60-3"><a href="#cb60-3" tabindex="-1"></a>  asolver <span class="ot">&lt;-</span> <span class="fu">annealing_solver</span>(<span class="at">schedule =</span> <span class="st">&quot;boltzmann&quot;</span>, <span class="at">initial_temperature =</span> <span class="fl">8.0</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">**</span> i),</span>
+<span id="cb60-4"><a href="#cb60-4" tabindex="-1"></a>                                <span class="at">final_temperature =</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">2</span> <span class="sc">**</span> i))</span>
+<span id="cb60-5"><a href="#cb60-5" tabindex="-1"></a>  <span class="cf">if</span> (i <span class="sc">!=</span> <span class="dv">0</span>) {</span>
+<span id="cb60-6"><a href="#cb60-6" tabindex="-1"></a>    m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(asolver, gmwcs_example, <span class="at">warm_start =</span> m)</span>
+<span id="cb60-7"><a href="#cb60-7" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb60-8"><a href="#cb60-8" tabindex="-1"></a>    m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(asolver, gmwcs_example)</span>
+<span id="cb60-9"><a href="#cb60-9" tabindex="-1"></a>  }</span>
+<span id="cb60-10"><a href="#cb60-10" tabindex="-1"></a>  <span class="fu">print</span>(m<span class="sc">$</span>weight)</span>
+<span id="cb60-11"><a href="#cb60-11" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] 179.2979
+## [1] 752.9807
+## [1] 853.7305
+## [1] 941.4808
+## [1] 944.4544
+## [1] 945.1109
+## [1] 945.1109
+## [1] 945.1109
+## [1] 945.1109
+## [1] 945.1109
+## [1] 945.1109
+## [1] 945.1109
+## [1] 945.1109
+## [1] 945.1109
+## [1] 945.1109
+## [1] 945.1109</code></pre>
 </div>
 <div id="java-based-virgo-solver" class="section level3">
 <h3>Java-based Virgo solver</h3>
@@ -814,11 +805,11 @@ or higher is required.</li>
 <p>Heuristic solver can be constructed, by specifying
 <code>cplex_dir=NULL</code>. As it is a heuristic solver, the solved to
 optimality flag is always set to <code>FALSE</code>.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" tabindex="-1"></a>mst_solver <span class="ot">&lt;-</span> <span class="fu">virgo_solver</span>(<span class="at">cplex_dir=</span><span class="cn">NULL</span>)</span>
-<span id="cb65-2"><a href="#cb65-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(mst_solver, sgmwcs_example)</span>
-<span id="cb65-3"><a href="#cb65-3" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a>mst_solver <span class="ot">&lt;-</span> <span class="fu">virgo_solver</span>(<span class="at">cplex_dir=</span><span class="cn">NULL</span>)</span>
+<span id="cb62-2"><a href="#cb62-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(mst_solver, sgmwcs_example)</span>
+<span id="cb62-3"><a href="#cb62-3" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
 <pre><code>## [1] 263.2752</code></pre>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>solved_to_optimality)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>solved_to_optimality)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>Exact solver requires setting <code>cplex_dir</code> argument with a
 path to CPLEX installation. The <code>cplex_dir</code> requires, that
@@ -832,27 +823,27 @@ argument pointing to the directory with CPLEX dynamic library files can
 be specified. Additionally, it is convenient to put the path to CPLEX
 into a <code>CPLEX_HOME</code> environment variable, so that it does not
 have to be changed from one system to another, when run.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" tabindex="-1"></a>cplex_dir <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">&#39;CPLEX_HOME&#39;</span>)</span>
-<span id="cb69-2"><a href="#cb69-2" tabindex="-1"></a>exact_solver <span class="ot">&lt;-</span> <span class="fu">virgo_solver</span>(<span class="at">cplex_dir=</span>cplex_dir)</span>
-<span id="cb69-3"><a href="#cb69-3" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(exact_solver, sgmwcs_example)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" tabindex="-1"></a>cplex_dir <span class="ot">&lt;-</span> <span class="fu">Sys.getenv</span>(<span class="st">&#39;CPLEX_HOME&#39;</span>)</span>
+<span id="cb66-2"><a href="#cb66-2" tabindex="-1"></a>exact_solver <span class="ot">&lt;-</span> <span class="fu">virgo_solver</span>(<span class="at">cplex_dir=</span>cplex_dir)</span>
+<span id="cb66-3"><a href="#cb66-3" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(exact_solver, sgmwcs_example)</span></code></pre></div>
 <p>As the CPLEX found the optimal solution, the corresponding flag is
 set to <code>TRUE</code>:</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>weight)</span></code></pre></div>
 <pre><code>## [1] 270.7676</code></pre>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>solved_to_optimality)</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>solved_to_optimality)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Some additional information like the running time, instance files,
 solver version is available as in the <code>stats</code> field. Refer to
 Virgo documentation for the description of the values.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>stats)</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" tabindex="-1"></a><span class="fu">print</span>(m<span class="sc">$</span>stats)</span></code></pre></div>
 <pre><code>##   isOpt VPrep EPrep time nodes edges
-## 1     1   136   148  764    40    39
+## 1     1   136   148  348    40    39
 ##                                        nodefile
-## 1 /tmp/RtmpdeDBzg/graph2c9e0068ba1a30/nodes.txt
+## 1 /tmp/RtmpchPnId/graph15d1333f1a5c68/nodes.txt
 ##                                        edgefile
-## 1 /tmp/RtmpdeDBzg/graph2c9e0068ba1a30/edges.txt
+## 1 /tmp/RtmpchPnId/graph15d1333f1a5c68/edges.txt
 ##                                           sigfile version
-## 1 /tmp/RtmpdeDBzg/graph2c9e0068ba1a30/signals.txt   0.1.5</code></pre>
+## 1 /tmp/RtmpchPnId/graph15d1333f1a5c68/signals.txt   0.1.5</code></pre>
 <p>Computational resources availble for Virgo can be specified with the
 following parameters:</p>
 <ul>
@@ -872,19 +863,19 @@ each edge penalized with the specified value. As there can be multiple
 solutions, having the same weight, especially in case of SGMWCS, this
 procedure allows to locally minimize the solution size, while preserving
 the weight.</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" tabindex="-1"></a>psolver <span class="ot">&lt;-</span> <span class="fu">virgo_solver</span>(<span class="at">cplex_dir=</span>cplex_dir, <span class="at">penalty=</span><span class="fl">0.001</span>)</span>
-<span id="cb76-2"><a href="#cb76-2" tabindex="-1"></a>min_m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(psolver, sgmwcs_example)</span>
-<span id="cb76-3"><a href="#cb76-3" tabindex="-1"></a><span class="fu">print</span>(min_m<span class="sc">$</span>weight)</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" tabindex="-1"></a>psolver <span class="ot">&lt;-</span> <span class="fu">virgo_solver</span>(<span class="at">cplex_dir=</span>cplex_dir, <span class="at">penalty=</span><span class="fl">0.001</span>)</span>
+<span id="cb73-2"><a href="#cb73-2" tabindex="-1"></a>min_m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(psolver, sgmwcs_example)</span>
+<span id="cb73-3"><a href="#cb73-3" tabindex="-1"></a><span class="fu">print</span>(min_m<span class="sc">$</span>weight)</span></code></pre></div>
 <pre><code>## [1] 270.7676</code></pre>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" tabindex="-1"></a><span class="fu">print</span>(min_m<span class="sc">$</span>stats)</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" tabindex="-1"></a><span class="fu">print</span>(min_m<span class="sc">$</span>stats)</span></code></pre></div>
 <pre><code>##   isOpt VPrep EPrep time nodes edges
-## 1     1   136   148  858    39    38
+## 1     1   136   148  377    39    38
 ##                                        nodefile
-## 1 /tmp/RtmpdeDBzg/graph2c9e003a835b97/nodes.txt
+## 1 /tmp/RtmpchPnId/graph15d13343789cee/nodes.txt
 ##                                        edgefile
-## 1 /tmp/RtmpdeDBzg/graph2c9e003a835b97/edges.txt
+## 1 /tmp/RtmpchPnId/graph15d13343789cee/edges.txt
 ##                                           sigfile version
-## 1 /tmp/RtmpdeDBzg/graph2c9e003a835b97/signals.txt   0.1.5</code></pre>
+## 1 /tmp/RtmpchPnId/graph15d13343789cee/signals.txt   0.1.5</code></pre>
 <p>Now the solution, has <code>min_m$stats$nodes</code> nodes instead of
 <code>m$stats$nodes</code> for the solution that was found before, while
 having the same total weight of <code>min_m$weight</code>.</p>
@@ -897,19 +888,19 @@ to download SCIPOptSuite from the <a href="https://scipopt.org/#scipoptsuite">of
 not provided in the pre-built SCIPOptSuite version, so you have to build
 it manually from source.</p>
 <p>Quick build instructions:</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb80-1"><a href="#cb80-1" tabindex="-1"></a><span class="co"># in scipoptsuite source directory</span></span>
-<span id="cb80-2"><a href="#cb80-2" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-Bbuild</span> <span class="at">-H.</span></span>
-<span id="cb80-3"><a href="#cb80-3" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--build</span> build <span class="at">--target</span> scipstp</span>
-<span id="cb80-4"><a href="#cb80-4" tabindex="-1"></a><span class="co"># optionally copy scipstp file somewhere to $PATH</span></span>
-<span id="cb80-5"><a href="#cb80-5" tabindex="-1"></a><span class="fu">cp</span> build/applications/scipstp /usr/local/bin/</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb77-1"><a href="#cb77-1" tabindex="-1"></a><span class="co"># in scipoptsuite source directory</span></span>
+<span id="cb77-2"><a href="#cb77-2" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">-Bbuild</span> <span class="at">-H.</span></span>
+<span id="cb77-3"><a href="#cb77-3" tabindex="-1"></a><span class="fu">cmake</span> <span class="at">--build</span> build <span class="at">--target</span> scipstp</span>
+<span id="cb77-4"><a href="#cb77-4" tabindex="-1"></a><span class="co"># optionally copy scipstp file somewhere to $PATH</span></span>
+<span id="cb77-5"><a href="#cb77-5" tabindex="-1"></a><span class="fu">cp</span> build/applications/scipstp /usr/local/bin/</span></code></pre></div>
 <p>For complete build and configuration instructions for this solver
 visit <a href="https://www.scipopt.org/doc/html/INSTALL_APPLICATIONS_EXAMPLES.php">SCIP</a>
 website.</p>
 <p>After installing and ensuring that scipstp application is correctly
 built, you can access <code>scipjack_solver</code> class to solve MWCS
 instances:</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" tabindex="-1"></a>scip <span class="ot">&lt;-</span> <span class="fu">scipjack_solver</span>(<span class="at">scipstp_bin=</span><span class="fu">Sys.which</span>(<span class="st">&quot;scipstp&quot;</span>))</span>
-<span id="cb81-2"><a href="#cb81-2" tabindex="-1"></a>sol <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(scip, mwcs_example)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" tabindex="-1"></a>scip <span class="ot">&lt;-</span> <span class="fu">scipjack_solver</span>(<span class="at">scipstp_bin=</span><span class="fu">Sys.which</span>(<span class="st">&quot;scipstp&quot;</span>))</span>
+<span id="cb78-2"><a href="#cb78-2" tabindex="-1"></a>sol <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(scip, mwcs_example)</span></code></pre></div>
 <p>The optimization parameters are passed using config file. You can
 modify bundled file or create a new one to fine-tune the solver.</p>
 </div>
@@ -921,65 +912,83 @@ combined with <code>BioNet</code> package to find an active module in a
 protein-protein interaction network. You need <code>BioNet</code> and
 <code>DLBCL</code> packages from Bioconductor to be installed in order
 to run following code examples.</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" tabindex="-1"></a>BioNetInstalled <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
-<span id="cb82-2"><a href="#cb82-2" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">&quot;BioNet&quot;</span>) <span class="sc">&amp;&amp;</span> <span class="fu">requireNamespace</span>(<span class="st">&quot;DLBCL&quot;</span>)) {</span>
-<span id="cb82-3"><a href="#cb82-3" tabindex="-1"></a>    BioNetInstalled <span class="ot">&lt;-</span> <span class="cn">TRUE</span>    </span>
-<span id="cb82-4"><a href="#cb82-4" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" tabindex="-1"></a>BioNetInstalled <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb79-2"><a href="#cb79-2" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">requireNamespace</span>(<span class="st">&quot;BioNet&quot;</span>) <span class="sc">&amp;&amp;</span> <span class="fu">requireNamespace</span>(<span class="st">&quot;DLBCL&quot;</span>)) {</span>
+<span id="cb79-3"><a href="#cb79-3" tabindex="-1"></a>    BioNetInstalled <span class="ot">&lt;-</span> <span class="cn">TRUE</span>    </span>
+<span id="cb79-4"><a href="#cb79-4" tabindex="-1"></a>}</span></code></pre></div>
 <p>Let start with generating an example scored network, following BioNet
 tutorial:</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
-<span id="cb83-2"><a href="#cb83-2" tabindex="-1"></a>    <span class="fu">library</span>(<span class="st">&quot;BioNet&quot;</span>)</span>
-<span id="cb83-3"><a href="#cb83-3" tabindex="-1"></a>    <span class="fu">library</span>(<span class="st">&quot;DLBCL&quot;</span>)</span>
-<span id="cb83-4"><a href="#cb83-4" tabindex="-1"></a>    <span class="fu">data</span>(dataLym)</span>
-<span id="cb83-5"><a href="#cb83-5" tabindex="-1"></a>    <span class="fu">data</span>(interactome)</span>
-<span id="cb83-6"><a href="#cb83-6" tabindex="-1"></a>    pvals <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">t =</span> dataLym<span class="sc">$</span>t.pval, <span class="at">s =</span> dataLym<span class="sc">$</span>s.pval)</span>
-<span id="cb83-7"><a href="#cb83-7" tabindex="-1"></a>    <span class="fu">rownames</span>(pvals) <span class="ot">&lt;-</span> dataLym<span class="sc">$</span>label</span>
-<span id="cb83-8"><a href="#cb83-8" tabindex="-1"></a>    pval <span class="ot">&lt;-</span> <span class="fu">aggrPvals</span>(pvals, <span class="at">order =</span> <span class="dv">2</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb83-9"><a href="#cb83-9" tabindex="-1"></a>    logFC <span class="ot">&lt;-</span> dataLym<span class="sc">$</span>diff</span>
-<span id="cb83-10"><a href="#cb83-10" tabindex="-1"></a>    <span class="fu">names</span>(logFC) <span class="ot">&lt;-</span> dataLym<span class="sc">$</span>label</span>
-<span id="cb83-11"><a href="#cb83-11" tabindex="-1"></a>    subnet <span class="ot">&lt;-</span> <span class="fu">subNetwork</span>(dataLym<span class="sc">$</span>label, interactome)</span>
-<span id="cb83-12"><a href="#cb83-12" tabindex="-1"></a>    subnet <span class="ot">&lt;-</span> <span class="fu">rmSelfLoops</span>(subnet)</span>
-<span id="cb83-13"><a href="#cb83-13" tabindex="-1"></a>    fb <span class="ot">&lt;-</span> <span class="fu">fitBumModel</span>(pval, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb83-14"><a href="#cb83-14" tabindex="-1"></a>    scores <span class="ot">&lt;-</span> <span class="fu">scoreNodes</span>(subnet, fb, <span class="at">fdr =</span> <span class="fl">0.001</span>)</span>
-<span id="cb83-15"><a href="#cb83-15" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
+<span id="cb80-2"><a href="#cb80-2" tabindex="-1"></a>    <span class="fu">library</span>(<span class="st">&quot;BioNet&quot;</span>)</span>
+<span id="cb80-3"><a href="#cb80-3" tabindex="-1"></a>    <span class="fu">library</span>(<span class="st">&quot;DLBCL&quot;</span>)</span>
+<span id="cb80-4"><a href="#cb80-4" tabindex="-1"></a>    <span class="fu">data</span>(dataLym)</span>
+<span id="cb80-5"><a href="#cb80-5" tabindex="-1"></a>    <span class="fu">data</span>(interactome)</span>
+<span id="cb80-6"><a href="#cb80-6" tabindex="-1"></a>    pvals <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">t =</span> dataLym<span class="sc">$</span>t.pval, <span class="at">s =</span> dataLym<span class="sc">$</span>s.pval)</span>
+<span id="cb80-7"><a href="#cb80-7" tabindex="-1"></a>    <span class="fu">rownames</span>(pvals) <span class="ot">&lt;-</span> dataLym<span class="sc">$</span>label</span>
+<span id="cb80-8"><a href="#cb80-8" tabindex="-1"></a>    pval <span class="ot">&lt;-</span> <span class="fu">aggrPvals</span>(pvals, <span class="at">order =</span> <span class="dv">2</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb80-9"><a href="#cb80-9" tabindex="-1"></a>    logFC <span class="ot">&lt;-</span> dataLym<span class="sc">$</span>diff</span>
+<span id="cb80-10"><a href="#cb80-10" tabindex="-1"></a>    <span class="fu">names</span>(logFC) <span class="ot">&lt;-</span> dataLym<span class="sc">$</span>label</span>
+<span id="cb80-11"><a href="#cb80-11" tabindex="-1"></a>    subnet <span class="ot">&lt;-</span> <span class="fu">subNetwork</span>(dataLym<span class="sc">$</span>label, interactome)</span>
+<span id="cb80-12"><a href="#cb80-12" tabindex="-1"></a>    subnet <span class="ot">&lt;-</span> <span class="fu">rmSelfLoops</span>(subnet)</span>
+<span id="cb80-13"><a href="#cb80-13" tabindex="-1"></a>    fb <span class="ot">&lt;-</span> <span class="fu">fitBumModel</span>(pval, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb80-14"><a href="#cb80-14" tabindex="-1"></a>    scores <span class="ot">&lt;-</span> <span class="fu">scoreNodes</span>(subnet, fb, <span class="at">fdr =</span> <span class="fl">0.001</span>)</span>
+<span id="cb80-15"><a href="#cb80-15" tabindex="-1"></a>}</span></code></pre></div>
 <p>Here we have network object <code>subnet</code> of type
 <code>graphNEL</code> and a vector of node scores
 <code>scores</code>:</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
-<span id="cb84-2"><a href="#cb84-2" tabindex="-1"></a>    subnet</span>
-<span id="cb84-3"><a href="#cb84-3" tabindex="-1"></a>    <span class="fu">str</span>(scores)</span>
-<span id="cb84-4"><a href="#cb84-4" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
+<span id="cb81-2"><a href="#cb81-2" tabindex="-1"></a>    subnet</span>
+<span id="cb81-3"><a href="#cb81-3" tabindex="-1"></a>    <span class="fu">str</span>(scores)</span>
+<span id="cb81-4"><a href="#cb81-4" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>##  Named num [1:2559] -4.829 -4.225 -5.514 3.931 -0.386 ...
+##  - attr(*, &quot;names&quot;)= chr [1:2559] &quot;ABL1(25)&quot; &quot;ACPP(55)&quot; &quot;ACTG1(71)&quot; &quot;ACTN1(87)&quot; ...</code></pre>
 <p>BioNet comes with a heuristic MWCS FastHeinz solver, that we can use
 to find the module following the BioNet tutorial:</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
-<span id="cb85-2"><a href="#cb85-2" tabindex="-1"></a>    bionet_h <span class="ot">&lt;-</span> <span class="fu">runFastHeinz</span>(subnet, scores)</span>
-<span id="cb85-3"><a href="#cb85-3" tabindex="-1"></a>    <span class="fu">plotModule</span>(bionet_h, <span class="at">scores=</span>scores, <span class="at">diff.expr=</span>logFC)</span>
-<span id="cb85-4"><a href="#cb85-4" tabindex="-1"></a>    <span class="fu">sum</span>(scores[<span class="fu">nodes</span>(bionet_h)])</span>
-<span id="cb85-5"><a href="#cb85-5" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
+<span id="cb83-2"><a href="#cb83-2" tabindex="-1"></a>    bionet_h <span class="ot">&lt;-</span> <span class="fu">runFastHeinz</span>(subnet, scores)</span>
+<span id="cb83-3"><a href="#cb83-3" tabindex="-1"></a>    <span class="fu">plotModule</span>(bionet_h, <span class="at">scores=</span>scores, <span class="at">diff.expr=</span>logFC)</span>
+<span id="cb83-4"><a href="#cb83-4" tabindex="-1"></a>    <span class="fu">sum</span>(scores[<span class="fu">nodes</span>(bionet_h)])</span>
+<span id="cb83-5"><a href="#cb83-5" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>## [1] 60.40548</code></pre>
 <p>We can construct an MWCS instance by converting <code>graphNEL</code>
 object into <code>igraph</code> and add node weights:</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) { </span>
-<span id="cb86-2"><a href="#cb86-2" tabindex="-1"></a>    bionet_example <span class="ot">&lt;-</span> <span class="fu">igraph.from.graphNEL</span>(subnet, <span class="at">weight=</span><span class="cn">FALSE</span>) <span class="co"># ignoring edge weights of 1</span></span>
-<span id="cb86-3"><a href="#cb86-3" tabindex="-1"></a>    <span class="fu">V</span>(bionet_example)<span class="sc">$</span>weight <span class="ot">&lt;-</span> scores[<span class="fu">V</span>(bionet_example)]</span>
-<span id="cb86-4"><a href="#cb86-4" tabindex="-1"></a>    <span class="fu">get_instance_type</span>(bionet_example)</span>
-<span id="cb86-5"><a href="#cb86-5" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) { </span>
+<span id="cb85-2"><a href="#cb85-2" tabindex="-1"></a>    bionet_example <span class="ot">&lt;-</span> <span class="fu">igraph.from.graphNEL</span>(subnet, <span class="at">weight=</span><span class="cn">FALSE</span>) <span class="co"># ignoring edge weights of 1</span></span>
+<span id="cb85-3"><a href="#cb85-3" tabindex="-1"></a>    <span class="fu">V</span>(bionet_example)<span class="sc">$</span>weight <span class="ot">&lt;-</span> scores[<span class="fu">V</span>(bionet_example)]</span>
+<span id="cb85-4"><a href="#cb85-4" tabindex="-1"></a>    <span class="fu">get_instance_type</span>(bionet_example)</span>
+<span id="cb85-5"><a href="#cb85-5" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## Warning: `igraph.from.graphNEL()` was deprecated in igraph 2.0.0.
+## ℹ Please use `graph_from_graphnel()` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.</code></pre>
+<pre><code>## $type
+## [1] &quot;MWCS&quot;
+## 
+## $valid
+## [1] TRUE</code></pre>
 <p>Now the instance can be solved with the relax-and-cut solver:</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
-<span id="cb87-2"><a href="#cb87-2" tabindex="-1"></a>    rmwcs <span class="ot">&lt;-</span> <span class="fu">rmwcs_solver</span>()</span>
-<span id="cb87-3"><a href="#cb87-3" tabindex="-1"></a>    bionet_m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rmwcs, bionet_example)</span>
-<span id="cb87-4"><a href="#cb87-4" tabindex="-1"></a>    <span class="fu">plotModule</span>(bionet_m<span class="sc">$</span>graph, <span class="at">scores=</span>scores, <span class="at">diff.expr=</span>logFC)</span>
-<span id="cb87-5"><a href="#cb87-5" tabindex="-1"></a>}</span></code></pre></div>
-<p>Note that the weight increased, compared to FastHeinz solution:</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
-<span id="cb88-2"><a href="#cb88-2" tabindex="-1"></a>    <span class="fu">print</span>(bionet_m<span class="sc">$</span>weight)</span>
-<span id="cb88-3"><a href="#cb88-3" tabindex="-1"></a>}</span></code></pre></div>
+<span id="cb88-2"><a href="#cb88-2" tabindex="-1"></a>    rmwcs <span class="ot">&lt;-</span> <span class="fu">rmwcs_solver</span>()</span>
+<span id="cb88-3"><a href="#cb88-3" tabindex="-1"></a>    bionet_m <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(rmwcs, bionet_example)</span>
+<span id="cb88-4"><a href="#cb88-4" tabindex="-1"></a>    <span class="fu">plotModule</span>(bionet_m<span class="sc">$</span>graph, <span class="at">scores=</span>scores, <span class="at">diff.expr=</span>logFC)</span>
+<span id="cb88-5"><a href="#cb88-5" tabindex="-1"></a>}</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>Note that the weight increased, compared to FastHeinz solution:</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
+<span id="cb89-2"><a href="#cb89-2" tabindex="-1"></a>    <span class="fu">print</span>(bionet_m<span class="sc">$</span>weight)</span>
+<span id="cb89-3"><a href="#cb89-3" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] 69.38064</code></pre>
 <p>Similarly, Virgo can be used to solve the instance to provable
 optimality, but in this case it produces the same results:</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
-<span id="cb89-2"><a href="#cb89-2" tabindex="-1"></a>    bionet_m_exact <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(exact_solver, bionet_example)</span>
-<span id="cb89-3"><a href="#cb89-3" tabindex="-1"></a>    <span class="fu">print</span>(bionet_m_exact<span class="sc">$</span>weight)</span>
-<span id="cb89-4"><a href="#cb89-4" tabindex="-1"></a>    <span class="fu">print</span>(bionet_m_exact<span class="sc">$</span>solved_to_optimality)</span>
-<span id="cb89-5"><a href="#cb89-5" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" tabindex="-1"></a><span class="cf">if</span> (BioNetInstalled) {</span>
+<span id="cb91-2"><a href="#cb91-2" tabindex="-1"></a>    bionet_m_exact <span class="ot">&lt;-</span> <span class="fu">solve_mwcsp</span>(exact_solver, bionet_example)</span>
+<span id="cb91-3"><a href="#cb91-3" tabindex="-1"></a>    <span class="fu">print</span>(bionet_m_exact<span class="sc">$</span>weight)</span>
+<span id="cb91-4"><a href="#cb91-4" tabindex="-1"></a>    <span class="fu">print</span>(bionet_m_exact<span class="sc">$</span>solved_to_optimality)</span>
+<span id="cb91-5"><a href="#cb91-5" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] 70.16602
+## [1] TRUE</code></pre>
 </div>
 
 

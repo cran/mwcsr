@@ -2,8 +2,8 @@
 knitr::opts_chunk$set(cache = TRUE)
 
 ## ----eval=F-------------------------------------------------------------------
-#  library(devtools)
-#  install_github("ctlab/mwcsr")
+# library(devtools)
+# install_github("ctlab/mwcsr")
 
 ## ----message=FALSE------------------------------------------------------------
 library(mwcsr)
@@ -114,8 +114,8 @@ print(m$weight)
 print(m$solved_to_optimality)
 
 ## ----message=FALSE,eval=FALSE-------------------------------------------------
-#  scip <- scipjack_solver(scipstp_bin=Sys.which("scipstp"))
-#  sol <- solve_mwcsp(scip, mwcs_example)
+# scip <- scipjack_solver(scipstp_bin=Sys.which("scipstp"))
+# sol <- solve_mwcsp(scip, mwcs_example)
 
 ## ----message=FALSE------------------------------------------------------------
 BioNetInstalled <- FALSE

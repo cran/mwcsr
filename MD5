@@ -1,4 +1,4 @@
-c97982e22c41f158d30b468160d776e4 *DESCRIPTION
+207c1d3cea99950d1e16065bf7245684 *DESCRIPTION
 a787f7e9d416fcaa75de4a4c78f2f46a *LICENSE
 d4e132ea73703f17040c5d27ba630cd4 *LICENSE.note
 aebdd2ca789297dd6a40727b67d1e2c0 *NAMESPACE
@@ -8,15 +8,15 @@ caee9ba0af505ba21cae6ffc86e94053 *R/annealing.R
 bee8d6ed91d5bc5b9a5e7c2c84909067 *R/mwcsr.R
 b40e1f77b65ecbb52d495b4a1ca1b9ae *R/parameters.R
 f8cb55a80e12a1338fdeb7f5c7686563 *R/rmwcs.R
-b5287abf79e3e36a3124d16dc63425bb *R/rnc_sgmwcs.R
+6d5da8a6ccf6ecf758abe2e6873a6e45 *R/rnc_sgmwcs.R
 51defa55521294f36ce3038d906643a4 *R/scipjack.R
 5d6934f94023e3cbba7fd04ec595478b *R/signal_solvers.R
 73205527d1b88834df2f1035799dd040 *R/solution.R
 60f79baf5106763d673febe138e464bc *R/solvers.R
 7306a651daee32ccb5207c63322e3175 *R/virgo.R
 5cb289cea7cc5bf9d0974aaec2ba37b9 *README.md
-38ab1962eec6eab5c520a4502634d7b6 *build/partial.rdb
-53b5a8d2af0105b483f93a5e40fff4fc *build/vignette.rds
+21c9401b8c07f38d762ade4612fc4ffe *build/partial.rdb
+e1f3ee19dc9e08506d77c471455a218a *build/vignette.rds
 be1e3b307edeaa2f0ddc5cd8a297baed *data/bionet_example.rda
 f0c22afede7440043374e27ab54f6f9b *data/gam_example.rda
 88ae16f6220c735e536be0196fc018f3 *data/gatom_example.rda
@@ -28,7 +28,7 @@ ff05618706cb6ba66689f4c0ed80e4be *data/gmwcs_example.rda
 a5a9f48c7b3305b66b09086ae8947f0d *data/sgmwcs_small_instance.rda
 b3beda95cb66a216fc68d2ede20ec651 *inst/doc/tutorial.R
 a1443fbda0d18a73a4a1a777eb7e3fe4 *inst/doc/tutorial.Rmd
-4a13b4a562bc9cfa0cf6eeff9b088c55 *inst/doc/tutorial.html
+22d3df7797a6ae5c112f52c20d4710ac *inst/doc/tutorial.html
 1024555f14d53a57952e276c9a72dfdb *inst/java/virgo-solver.jar
 36a85750c3209d3bba2e81e945aa01d2 *java/README.md
 c7881979362143f51421266638ccb420 *man/annealing_solver.Rd
@@ -111,7 +111,7 @@ b9466a188f812f5b0da53891898c62fe *src/sgmwcs/variable.cpp
 936597b3bc5cb036e726d4b8af5bc647 *tests/testthat.R
 d41d8cd98f00b204e9800998ecf8427e *tests/testthat/test_instances.R
 c76690610f20e9d50899392a0f71ba57 *tests/testthat/test_rmwcs.R
-3507244c646efa954bd68d301bc35c9b *tests/testthat/test_rnc.R
+7bce3dcc6cd6b0120be7b663470b3480 *tests/testthat/test_rnc.R
 5b4052dacb98daee537482cab1d174af *tests/testthat/test_sa.R
 738ea272e64f28f4725ba4879d1c7616 *tests/testthat/test_scip.R
 588a47e867ab8947fe29ad112865b5ac *tests/testthat/test_sgmwcs.R
